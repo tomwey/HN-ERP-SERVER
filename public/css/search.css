@@ -12,6 +12,10 @@
   padding: 0;
 }
 
+.close-search-bar-button {
+  padding-top: 2px;
+}
+
 .search-bar .table td {
   border-width: 0;
   vertical-align: top;
@@ -32,14 +36,6 @@
   padding-right: 0;
 }
 
-.search-bar .city-box {
-  border: 1px solid rgb(216,216,216);
-  background-color: white;
-  padding: 5px;
-/*  background-color: green;*/
-/*  padding-left: 0;*/
-}
-
 .search-bar .city {
   border: 0;
   border-radius: 0;
@@ -54,8 +50,14 @@
   margin-top: 2px;
 }
 
+.bootstrap-select {
+  width: 70px !important;
+  margin-top: -5px;
+}
+
 .search-bar .search-td {
 /*  width: 40%;*/
+/*  padding-top: 2px;*/
 }
 
 .search-bar .search-btn {

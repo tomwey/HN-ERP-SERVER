@@ -28,7 +28,7 @@ window.CM_UIUtil = {
   },
   hideSearchBar: function() {
     $('#search-bar-container').animate({
-      top: '-100px',
+      top: '-500px',
     });
     $('#fab-button').animate({
       opacity: '1.0',

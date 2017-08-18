@@ -16,9 +16,13 @@
     
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- link href="https://cdn.bootcss.com/chosen/1.7.0/chosen.min.css" rel="stylesheet" -->
     
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/search.css">
+    <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css?v1.1">
+    <link rel="stylesheet" href="css/search.css?v1.1">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -72,18 +76,19 @@
     
     <!-- 搜索 -->
     <div class="search-bar-container" id="search-bar-container">
+            
       <div class="search-bar">
         <table class="table">
           <tr>
             <td class="city-td">
               <div class="city-box">
-                <select class="city" id="city">
+                <select class="city selectpicker" id="city">
                   <option value="-1">全国</option>
                 </select>
               </div>
             </td>
             <td class="search-td">
-              <div class="input-group">
+              <div class="input-group" style="margin-top: 2px;">
                 <input type="text" class="form-control custom-control" placeholder="输入版块名称" aria-describedby="basic-addon2" id="plate-keyword">
                 <a class="input-group-addon search-btn" id="basic-addon2">
                   搜索
@@ -106,6 +111,11 @@
             </td>
           </tr>
         </table>
+        
+        <!-- 关闭按钮 -->
+        <div id="close-search-bar-button" class="fab-button close-search-bar-button">
+          <i class="glyphicon glyphicon-remove"></i>
+        </div>
       </div>
       
       <div class="search-breadcrumb" id="search-breadcrumb"><a class="bread">全国</a> > <a class="bread">时间：近三月</a></div>
@@ -120,18 +130,18 @@
                     </div>
                     <div class="custom-item">
                       <label class="radio-inline">
-                        <input type="radio" value=""> 自定义：
+                        <input type="radio" name="date_item" value="-1"> 自定义：
                       </label>
-                      <input type="text" name="start" placeholder="xxxx-xx-xx">
+                      <input type="date" name="tStart" pattern="yyyy-MM-dd" id="date-state">
                         <span>—</span>
-                      <input type="text" name="end" placeholder="xxxx-xx-xx">
+                      <input type="date" name="tEnd" id="date-end">
                     </div>
                   </div>
               </td>
           </tr>
           <tr>
               <td width="8%" class="label-bar">
-                  <select class="other-filter-item" id="other-filter-item">
+                  <select class="other-filter-item selectpicker" id="other-filter-item">
                       <option value="城市地图前端面积段">面积</option>
                       <option value="城市地图前端总价段">总价</option>
                       <option value="城市地图前端单价段">单价</option>
@@ -144,11 +154,11 @@
                   </div>
                   <div class="custom-item">
                     <label class="checkbox-inline">
-                      <input type="checkbox" value="">自定义：
+                      <input type="checkbox" value="-1">自定义：
                     </label>
-                    <input type="text" name="start">
+                    <input type="number" name="start" id="other-filter-start">
                       <span>—</span>
-                    <input type="text" name="end"> ㎡
+                    <input type="number" name="end" id="other-filter-end"> <span id="item-unit">㎡</span>
                   </div>
                 </div>
               </td>
@@ -168,13 +178,18 @@
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=416d0e290f7200729d8f2915cc57224c&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar"></script>
       <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-      <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/network.js?t=v1.0"></script>
-      <script src="js/ui-utils.js?t=v1.0"></script>
-      <script src="js/map-handle.js?t=v1.0"></script>
+      <!-- script src="https://cdn.bootcss.com/chosen/1.7.0/chosen.jquery.min.js"></script -->
       
-      <script src="js/common.js?t=v1.0"></script>
+      <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      
+      <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/network.js?t=v1.1"></script>
+      <script src="js/ui-utils.js?t=v1.1"></script>
+      <script src="js/map-handle.js?t=v1.1"></script>
+      
+      <script src="js/common.js?t=v1.1"></script>
       
   </body>
 </html>

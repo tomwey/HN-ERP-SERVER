@@ -139,9 +139,14 @@ window.CM_Map = {
       //   console.log(res);
       // });
       if (this.map.getZoom() >= 13) {
-        
+        // 获取详细的版块
       } else if ( this.map.getZoom() >= 9 ) {
-        
+        // 获取城市相关的版块
+        CM_Network.loadCityMapDatas((res) => {
+          
+        }, (err) => {
+          
+        });
       } else {
         
       }

@@ -1,5 +1,10 @@
 $(document).ready(function() {
   
+  // $('select').chosen({
+  //   no_results_text:
+  //   "没有找到",
+  // });
+  
   // $('#search-breadcrumb').show();
   
   // 创建地图
@@ -16,6 +21,8 @@ $(document).ready(function() {
     }
     // console.log(html);
     $('#city').html(html);
+    
+    // $("#city").trigger("chosen:updated");
   }, (err) => {
     // console.log(err);
     $('#city').html('');
@@ -43,7 +50,6 @@ $(document).ready(function() {
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
       html += '<label class="radio-inline"><input type="radio" name="date_item" id="date_item" value="'+ item.dic_value +'">'+ item.dic_name +'</label>';
-      // html += '<a onclick="selectTimeItem(this);" data-value="'+ item.dic_value +'" class="item">'+ item.dic_name +'</a>';
     }
     $('#filter-time-items').html(html);
   }, (err) => {
@@ -60,6 +66,22 @@ $(document).ready(function() {
   $('#other-filter-item').change(function() {
     // console.log($(this).val());
     loadOtherFilterItems($(this).val());
+    
+    $('.custom-item input[type=checkbox]').prop('checked', false);
+    $('#other-filter-start').val('');
+    $('#other-filter-end').val('');
+    
+    // 更新自定义字段后面的单位显示
+    var text = $('#other-filter-item option:selected').text();
+    if (text === '面积') {
+      $('#item-unit').text('㎡');
+    } else if (text === '单价') {
+      $('#item-unit').text('元');
+    } else if (text === '总价') {
+      $('#item-unit').text('万元');
+    } else {
+      $('#item-unit').text('');
+    }
   });
   function loadOtherFilterItems(val) {
     $('#other-filter-items').html('加载数据中...');
@@ -107,7 +129,62 @@ $(document).ready(function() {
   
   // 开始高级查询
   $('#ok-search').click(function() {
+    var value = $('input:radio:checked').val();
+    // console.log(value);
+    if (value) {
+      var dateType = value.toString();
+      CM_Network.cityMapDataParams.dateType = dateType
+      if (dateType === '-1') {
+        CM_Network.cityMapDataParams.bDate = '2017-01-09';
+        CM_Network.cityMapDataParams.eDate = '2017-08-10';
+      } else {
+        CM_Network.cityMapDataParams.bDate = '';
+        CM_Network.cityMapDataParams.eDate = '';
+      }
+    }
     
+    // 准备其他指标数据
+    var paramValues = [];
+    $("input[type=checkbox]:checked").each(function() {
+      // console.log( $(this).val() );
+      var value = $(this).val();
+      if (value === '-1') {
+        // 自定义
+        var start = $('#other-filter-start').val();
+        var end   = $('#other-filter-end').val();
+        
+        // console.log(start);
+        // console.log(end);
+        
+        start = parseInt(start);
+        end   = parseInt(end);
+        
+        if (start < 0) {
+          alert('值不能为负数');
+          return;
+        }
+        
+        if (end < start) {
+          alert('第一个值不能大于第二个值');
+          return;
+        }
+        
+        paramValues.push(start.toString() + '-' + end.toString());
+        
+        // paramValues.push(value);
+      } else {
+        // 其他
+        paramValues.push(value);
+      }
+    });
+    
+    if (paramValues.length > 0) {
+      var text = $('#other-filter-item option:selected').text();
+      console.log(text);
+      console.log(paramValues);
+    }
+    
+    // console.log($("input[type='checkbox']").eq(1).attr("checked").value)
   });
   
   // 打开搜索条
@@ -115,6 +192,12 @@ $(document).ready(function() {
     // alert(2);
     CM_UIUtil.showSearchBar();
   });
+  
+  // 关闭搜索条
+  $('#close-search-bar-button').click(function() {
+    CM_UIUtil.hideSearchBar();
+  });
+  
   // 点击search按钮搜索
   $('#basic-addon2').click(function() {
     
