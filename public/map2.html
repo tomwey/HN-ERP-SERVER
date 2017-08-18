@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>城市地图</title>
+                    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+                        
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script>
+    var points = [{"id": 1,
+                       "name": "成都",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "30.697218",
+                       "lng": "104.073694",
+                       },{"id": 2,
+                       "name": "西安",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "34.426441",
+                       "lng": "108.854401",
+                       },{"id": 3,
+                       "name": "长沙",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "28.147104",
+                       "lng": "113.065494",
+                       },{"id": 4,
+                       "name": "宁波",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "29.862349",
+                       "lng": "121.537031",
+                       },
+                       {"id": 5,
+                       "name": "武汉",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "30.606726",
+                       "lng": "114.424348",
+                       },
+                       {"id": 6,
+                       "name": "佛山",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "23.041469",
+                       "lng": "113.110902",
+                       },
+                       {"id": 7,
+                       "name": "郑州",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "34.745793",
+                       "lng": "113.658075",
+                       },
+                       {"id": 8,
+                       "name": "东莞",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "23.089253",
+                       "lng": "113.858982",
+                       },
+                       {"id": 9,
+                       "name": "合肥",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "31.885130",
+                       "lng": "117.316933",
+                       },
+                       {"id": 10,
+                       "name": "济南",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "36.857215",
+                       "lng": "117.216794",
+                       },
+                       {"id": 11,
+                       "name": "杭州",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "30.291119",
+                       "lng": "120.213064",
+                       },
+                       {"id": 12,
+                       "name": "苏州",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "31.324034",
+                       "lng": "120.708343",
+                       },
+                       {"id": 13,
+                       "name": "天津",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "39.135884",
+                       "lng": "117.210061",
+                       },
+                       {"id": 14,
+                       "name": "重庆",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "29.584493",
+                       "lng": "106.569245",
+                       },
+                       {"id": 15,
+                       "name": "石家庄",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "38.280477",
+                       "lng": "114.698944",
+                       },
+                       {"id": 16,
+                       "name": "南昌",
+                       "curr_stock": 234,
+                       "sell_length": 31,
+                       "year_sale": 20,
+                       "lat": "28.683016",
+                       "lng": "115.857963",
+                       },
+                       ];
+                       
+                       var points2 = [{"id": 1,
+                                      "name": "城内区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.2595",
+                                      "lng": "108.9470",
+                                      },{"id": 2,
+                                      "name": "城北区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.3001",
+                                      "lng": "108.9415",
+                                      },{"id": 3,
+                                      "name": "城东区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.2733",
+                                      "lng": "109.0512",
+                                      },{"id": 4,
+                                      "name": "城南区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.1945",
+                                      "lng": "108.9050",
+                                      },
+                                      {"id": 5,
+                                      "name": "城西区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.2664",
+                                      "lng": "108.8468",
+                                      },
+                                      {"id": 6,
+                                      "name": "经开区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.3183",
+                                      "lng": "108.9409",
+                                      },
+                                      {"id": 7,
+                                      "name": "浐灞区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.3183",
+                                      "lng": "109.0325",
+                                      },
+                                      {"id": 8,
+                                      "name": "曲江区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.2027",
+                                      "lng": "108.9898",
+                                      },
+                                      {"id": 9,
+                                      "name": "高新区",
+                                      "curr_stock": 234,
+                                      "sell_length": 31,
+                                      "year_sale": 20,
+                                      "lat": "34.2242",
+                                      "lng": "108.8458",
+                                      },
+                                      ];
+    </script>
+    <style type="text/css">
+          
+      * {
+          margin: 0;
+          padding: 0;
+      }
+      body, html {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          /*        margin: 0;*/
+      }
+      
+      #map {
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          position: absolute;
+          z-index: 0;
+      }
+      
+      /* 顶部搜索条 */
+      .topbar-container {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        left: 0;
+        top: 0;
+      }
+      
+      .topbar-inner {
+/*        height: 60px;*/
+/*        background-color: white;*/
+        padding: 10px;
+      }
+      
+      .topbar {
+        width: 100%;
+        background-color: white;
+/*        height:44px;*/
+        border: 1px solid rgb(216,216,216);
+/*        border-top: 0;*/
+        padding: 5px;
+      }
+      
+      .topbar .table {
+        margin: 0;
+        padding: 0;
+/*        border-bottom:0px !important;*/
+/*        border-collapse: none;*/
+      }
+      
+      .topbar .table tr td {
+        vertical-align: middle;
+        border-width: 0;
+      }
+      
+      /* 右侧边栏 */
+      .sidebar {
+        position: absolute;
+        z-index: 1;
+        top: 100px;
+        right: 10px;
+      }
+      
+      .sidebar .panel {
+        height: 500px;
+        width: 300px;
+      }
+      
+      .sidebar .table tr td {
+        border-width: 0;
+      }
+      
+      .sidebar .with-nav-tabs .panel-heading {
+        color: white;
+      }
+      
+      .sidebar .panel-body {
+/*        padding: 15px;*/
+      }
+      
+      .sidebar .panel-heading>.nav-tabs {
+          border-bottom: none;
+          margin-bottom: -10px;
+      } 
+      
+      .sidebar .td-time-label {
+/*        background-color: red;*/
+        text-align: left;
+      }
+      
+      .sidebar .td-width {
+        width: 10%;
+      }
+      
+      .sidebar .td-content {
+        vertical-align: middle;
+/*        background-color: red;*/
+      }
+      
+      .sidebar .filter-items {
+        margin: 0;
+        padding: 0;
+      }
+      
+      .sidebar .filter-items .item {
+        color: rgb(58,58,58);
+        display: inline-block;
+        padding: 3px 5px;
+        background-color: rgb(247,247,247);
+        margin-bottom: 5px;
+        margin-right: 5px;
+      }
+      
+      .sidebar .filter-items .custom-item {
+        
+      }
+      
+      .sidebar .filter-items.change-position {
+        margin-top: -10px;
+      }
+      
+      /** 下面的CSS是地图标记样式 **/
+      .marker-container {
+          
+          border-radius: 50%;
+          background-color: red;
+          text-align: center;
+          
+          /*        text-align: center;*/
+      }
+      
+      .small-marker {
+          width: 20px;
+          height: 20px;
+      }
+      
+      .large-marker {
+          width: 84px;
+          height: 84px;
+          
+          background-color: rgba(255,0,0,0.8);
+      }
+      
+      .large-marker p {
+          margin: 0;
+          padding: 0;
+          font-size: 10px;
+          color: white;
+      }
+      
+      .large-marker .title {
+          padding-top: 10px;
+          /*        font-weight: bold;*/
+          font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" class="map" tabindex="0"></div>
+    
+    <!-- 搜索框 -->
+    <div class="topbar-container">
+      <div class="topbar-inner">
+          <div class="topbar">
+            <table class="table">
+              <tr>
+                <td width="5%">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      全国
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                      <li><a href="#">成都</a></li>
+                      <li><a href="#">西安</a></li>
+                      <li><a href="#">长沙</a></li>
+                      <li><a href="#">宁波</a></li>
+                    </ul>
+                  </div>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入版块名称" aria-describedby="basic-addon2">
+                    <span class="input-group-addon btn btn-primary" id="basic-addon2">
+                      搜索
+                    </span>
+                  </div>
+                </td>
+                <td width="6%">
+                  <button type="button" class="btn btn-primary">清除搜索</button>
+                </td>
+                <td width="10%" align="right">
+                  <label class="checkbox-inline">
+                    <input type="checkbox" value="" id="show-rank"> 显示排名
+                  </label>
+                </td>
+              </tr>
+            </table>
+          </div>
+      </div>
+    </div>
+    
+    <!-- 右侧边栏 -->
+    <div id="sidebar" class="sidebar">
+      <div class="panel with-nav-tabs panel-default">
+        <div class="panel-heading">
+          <ul id="myTabs" class="nav nav-tabs">
+            <li class="active">
+              <a href="#tab1" data-toggle="tab">筛选</a>
+            </li>
+            <li class="">
+              <a href="#tab2" data-toggle="tab">指标</a>
+            </li>
+            <li class="">
+              <a href="#tab3" data-toggle="tab">排名</a>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-body">
+          <div class="tab-content">
+            <div class="tab-pane fade active in" id="tab1">
+              <table class="table">
+                <tr>
+                  <td class="td-time-label td-width">时间：</td>
+                  <td class="td-content">
+                    <div class="filter-items">
+                        <a href="#" class="item">本月</a>
+                        <a href="#" class="item">近三月</a>
+                        <a href="#" class="item">近半年</a>
+                        <a href="#" class="item">近一年</a>
+                        <a href="#" class="item">近三年</a>
+                        <div class="custom-item">
+                            <span>自定义：</span>
+                            <input type="text" name="start" placeholder="xxxx-xx-xx">
+                                <span>—</span>
+                                <input type="text" name="end" placeholder="xxxx-xx-xx">
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="td-spec-label td-width">
+                    <select class="other-filter-item">
+                      <option value="">面积</option>
+                      <option value="">总价</option>
+                      <option value="">单价</option>
+                    </select>
+                  </td>
+                  <td class="td-content">
+                    <div class="filter-items change-position">
+                      <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 100㎡以下
+                          </label>
+                      </div>
+                        
+                      <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 100㎡ - 120㎡
+                          </label>
+                      </div>
+                      
+                      <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 120㎡ - 140㎡
+                          </label>
+                      </div>
+                        
+                      <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 140㎡ - 160㎡
+                          </label>
+                      </div>
+                      
+                      <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 160㎡ - 180㎡
+                          </label>
+                      </div>
+                        
+                      <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> 180㎡以上
+                          </label>
+                      </div>
+                      
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value=""> 自定义：
+                        </label>
+                        <input type="text" name="start">
+                        <span>—</span>
+                        <input type="text" name="end"> ㎡
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="tab2">这是指标内容</div>
+            <div class="tab-pane fade" id="tab3">这是排名情况</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=416d0e290f7200729d8f2915cc57224c&&plugin=AMap.Scale,AMap.OverView,AMap.ToolBar"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+        
+    <script type="text/javascript">
+    var map;
+    function initMap() {
+      map = new AMap.Map('map',{
+        resizeEnable: true,
+        zoom: 5,
+        });
+                                                                
+      var scale = new AMap.Scale({}),
+          toolBar = new AMap.ToolBar({});
+      map.addControl(scale);
+    }
+    
+    initMap();
+      
+    var markers = addSmallMarkers(points);
+                                                                
+    AMap.event.addListener(map,'zoomend',function(){
+      map.remove(markers);
+      if ( map.getZoom() >= 13 ) {
+        markers = addLargeMarkers(points2);
+      } else if (map.getZoom() >= 9) {
+        markers = addLargeMarkers(points);
+                                                                                     
+        // 显示指标面板
+        $('#myTabs a[href="#tab2"]').tab('show');
+      } else {
+        markers = addSmallMarkers(points);
+        
+        $('#myTabs a[href="#tab1"]').tab('show');
+      }
+    });
+    
+    // 添加小的标记                                                                            
+    function addSmallMarkers(pois) {
+      var markers = [];
+        for (var i = 0; i<pois.length; i++) {
+            var marker = new AMap.Marker({
+              position: [pois[i].lng, pois[i].lat],//marker所在的位置
+              map: map, //创建时直接赋予map属性
+              offset: new AMap.Pixel(-10, -10), //相对于基点的偏移位置
+              content: '<div class="marker-container small-marker"></div>',
+              extData: { level: 9 },
+            });
+            
+            marker.on('click', function(e) {
+               var _marker = e.target;
+               var _map = _marker.getMap();
+               var newLevel = _marker.getExtData().level;
+               var level = _map.getZoom();
+               if (level < newLevel) {
+                  _map.setZoomAndCenter(newLevel, _marker.getPosition());
+               }
+             });
+                   
+             markers.push(marker);         
+          }
+          
+          return markers;
+          
+        }
+        
+        function addLargeMarkers(pois) {
+            
+            var markers = [];
+            for (var i = 0; i<pois.length; i++) {
+                var marker = new AMap.Marker({
+                   position: [pois[i].lng, pois[i].lat],//marker所在的位置
+                   map: map, //创建时直接赋予map属性
+                   offset: new AMap.Pixel(-42, -42), //相对于基点的偏移位置
+                   content: '<div class="marker-container large-marker"><div class="text">' +
+                   '<p class="title">'+ pois[i].name +'</p>' + 
+                   '<p>当前存量: '+ pois[i].curr_stock +'</p>' +
+                   '<p>去化周期: '+ pois[i].sell_length +'</p>' + 
+                   '<p>年销量: '+ pois[i].year_sale +'</p>' +
+                   '</div></div>',
+                   extData: { level: 13 },
+                   });
+                   
+                   marker.on('click', function(e) {
+                      var _marker = e.target;
+                      var _map = _marker.getMap();
+                      var newLevel = _marker.getExtData().level;
+                      var level = _map.getZoom();
+                      if (level < newLevel) {
+                        _map.setZoomAndCenter(newLevel, _marker.getPosition());
+                      }
+                    });
+                             
+                    markers.push(marker);
+            }
+            
+            return markers;
+        }     
+        
+        $('#show-rank').change(function() {
+          if (this.checked) {
+            $('#myTabs a[href="#tab3"]').tab('show');
+          } else {
+            $('#myTabs a[href="#tab1"]').tab('show');
+          }
+        });
+        
+        $('#myTabs a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+          if ($(this).attr('href') === '#tab3') {
+            $('#show-rank').prop('checked', true);
+          } else {
+            $('#show-rank').prop('checked', false);
+          }
+        });
+        
+    </script>
+  </body>
+</html>

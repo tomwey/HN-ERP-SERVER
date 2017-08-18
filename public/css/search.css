@@ -1,0 +1,152 @@
+.search-bar-container {
+  background-color: rgba(255,255,255,0.9);
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  padding: 5px 80px 5px 80px;
+/*  top: -300px;*/
+}
+
+.search-bar .table {
+  margin: 0;
+  padding: 0;
+}
+
+.search-bar .table td {
+  border-width: 0;
+  vertical-align: top;
+}
+
+.search-breadcrumb {
+  margin-bottom: 10px;
+}
+
+.search-breadcrumb a {
+  color: rgb(58,58,58);
+}
+
+.search-bar .city-td {
+  width: 5%;
+/*  background-color: red;*/
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.search-bar .city-box {
+  border: 1px solid rgb(216,216,216);
+  background-color: white;
+  padding: 5px;
+/*  background-color: green;*/
+/*  padding-left: 0;*/
+}
+
+.search-bar .city {
+  border: 0;
+  border-radius: 0;
+  -ms-border-radius: 0;
+  /*        height: 40px;*/
+  width: 55px;
+  /*        width: 100%;*/
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+/*  margin-left: 10px;*/
+  margin-top: 2px;
+}
+
+.search-bar .search-td {
+/*  width: 40%;*/
+}
+
+.search-bar .search-btn {
+  background-color: rgb(200,62,59);
+  color: white;
+  border-radius: 0;
+  cursor: pointer;
+/*  border: 1px solid rgb(216,216,216);*/
+}
+
+a.search-btn {
+  text-decoration: none;
+}
+
+a.clear-btn {
+  padding: 5px;
+  color: rgb(58,58,58);
+  text-decoration: none;
+  cursor:pointer;
+}
+
+a.filter-btn {
+  padding: 5px;
+  color: rgb(58,58,58);
+  text-decoration: none;
+  cursor:pointer;
+}
+
+.search-bar .custom-control {
+  border-radius: 0;
+  border: 1px solid rgb(216,216,216);
+  border-right: 0;
+}
+
+.advanced-search-bar {
+/*  display: none;*/
+}
+
+.advanced-search-bar .table {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.filter-items .custom-item {
+  margin-top: 8px;
+}
+
+.show-rank-td {
+  width: 15%;
+  text-align: right;
+}
+
+.reload-btn-td {
+  width: 5%;
+/*  background-color: red;*/
+/*  text-align: right; */
+}
+
+.reload-btn-td .reload-btn-box {
+/*  padding-top: 6px;*/
+}
+.reload-btn-box .reload-btn {
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+}
+.reload-btn-box .reload-btn i {
+  font-size: 22px;
+  color: rgb(108,108,108);
+}
+
+.show-rank-td .cb-position {
+  padding-top: 8px;
+}
+
+.show-rank-td .cb-size {
+  font-size: 16px;
+  color: rgb(58,58,58);
+}
+
+.search-breadcrumb {
+  margin-top: 5px;
+}
+
+.buttons-td {
+  width: 15%;
+/*  padding-top: 10px;*/
+}
+
+.buttons-td .buttons {
+  padding-top: 8px;
+}
+
