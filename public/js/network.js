@@ -10,18 +10,27 @@ window.CM_Network = {
     eDate: '',
     level: '1',
   },
-  loadCityMapData: function(successCallback, errorCallback) {
-    var params = [this.cityMapDataParams.cityID, 
-                  this.cityMapDataParams.plateID,
-                  this.cityMapDataParams.plateName,
-                  this.cityMapDataParams.paramType,
-                  this.cityMapDataParams.paramValues,
-                  this.cityMapDataParams.dateType,
-                  this.cityMapDataParams.bDate,
-                  this.cityMapDataParams.eDate,
-                  this.cityMapDataParams.level,
-                  ];
-    this.sendReq('城市地图APP', params, successCallback, errorCallback);
+  lastCityMapParams: '',
+  loadCityMapData: function(successCallback, errorCallback) {    
+      // if (this.lastCityMapParams !== JSON.stringify(this.cityMapDataParams)) {
+        this.lastCityMapParams = JSON.stringify(this.cityMapDataParams);
+        
+        var params = [this.cityMapDataParams.cityID, 
+                      this.cityMapDataParams.plateID,
+                      this.cityMapDataParams.plateName,
+                      this.cityMapDataParams.paramType,
+                      this.cityMapDataParams.paramValues,
+                      this.cityMapDataParams.dateType,
+                      this.cityMapDataParams.bDate,
+                      this.cityMapDataParams.eDate,
+                      this.cityMapDataParams.level,
+                      ];
+        
+        this.sendReq('城市地图APP', params, successCallback, errorCallback);
+      // } 
+  },
+  canLoadData: function() {
+    return (this.lastCityMapParams !== JSON.stringify(this.cityMapDataParams));
   },
   sendReq: function(apiName, paramsArr, successCallback, errorCallback) {
     params = {};

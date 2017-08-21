@@ -128,6 +128,8 @@ window.CM_Map = {
     // console.log('loading');
     this.isLoading = true;
     
+    if (!CM_Network.canLoadData()) return;
+    
     $('#search-breadcrumb').html('拼命获取数据中...');
     
     if (this.map.getZoom() >= 9) {
