@@ -126,9 +126,49 @@ window.CM_Map = {
     // 监听地图移动事件
     AMap.event.addListener(this.map,'moveend', () => {
       // CM_UIUtil.hideSearchBar();
-      this.map.getCity((res) => {
-        console.log(res);
-      });
+      // console.log('ddddddd');
+      console.log(this.map.getZoom());
+      
+      if (this.map.getZoom() >= 9) {
+        this.map.getCity((res) => {
+          // console.log(res);
+          var city = res.city;
+          if (city.indexOf('市') >= 0) {
+            city = city.substr(0, city.length - 1);
+          }
+          
+          CM_Network.cityMapDataParams.cityID = city;
+          
+          CM_Network.loadCityMapData((res) => {
+            console.log(res.data);
+            if (!res.data || res.data.length === 0) {
+              // this.map.remove(this.markers);
+            } else {
+              if (this.map.getZoom() >= 13) {
+                this.addPlateMarkers(res.data);
+              } else {
+                this.addCityDetailMarkers(res.data);
+              }
+              
+            }
+          }, (err) => {
+            
+          });
+        });
+      } else {
+        CM_Network.cityMapDataParams.cityID = '-1';
+        
+        CM_Network.loadCityMapData((res) => {
+          console.log(res.data);
+          if (!res.data || res.data.length === 0) {
+            // this.map.remove(this.markers);
+          } else {
+            this.addCityListMarkers(res.data);
+          }
+        }, (err) => {
+          
+        });
+      }
     });
     
     // 监听地图缩放事件
@@ -138,15 +178,16 @@ window.CM_Map = {
       // this.map.getCity((res) => {
       //   console.log(res);
       // });
+      this.map.remove(this.markers);
       if (this.map.getZoom() >= 13) {
         // 获取详细的版块
       } else if ( this.map.getZoom() >= 9 ) {
         // 获取城市相关的版块
-        CM_Network.loadCityMapDatas((res) => {
-          
-        }, (err) => {
-          
-        });
+        // CM_Network.loadCityMapDatas((res) => {
+//           
+//         }, (err) => {
+//           
+//         });
       } else {
         
       }
@@ -171,7 +212,7 @@ window.CM_Map = {
       // }
     });  
   },
-  addSmallMarkers: function(markerDataArr, extData = { level: 9 }) {
+  addCityListMarkers: function(markerDataArr, extData = { level: 9 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     this.map.remove(this.markers);
@@ -183,8 +224,12 @@ window.CM_Map = {
       var marker = new AMap.Marker({
         position: [markerData.longitude, markerData.latitude],//marker所在的位置
         map: this.map, //创建时直接赋予map属性
-        offset: new AMap.Pixel(-13, -13), //相对于基点的偏移位置
-        content: '<div class="marker-container small-marker"><div class="text">'+ markerData.platecount +'</div></div>',
+        offset: new AMap.Pixel(-35, -35), //相对于基点的偏移位置
+        content: '<div class="marker-container small-marker"> ' +
+                    '<div class="marker-content"> ' + 
+                      '<p class="cityname">'+ markerData.cityname +'</p>' + 
+                      '<p class="platecount">' + (markerData.platecount > 99 ? '99+' : markerData.platecount) + '个版块</p> ' + 
+                    '</div></div>',
         extData: extData,
       });
       marker.on('click', function(e) {
@@ -199,7 +244,7 @@ window.CM_Map = {
       this.markers.push(marker);
     } // done add markers
   },
-  addLargeMarkers: function(markerDataArr, extData = { level: 13 }) {
+  addPlateMarkers: function(markerDataArr, extData = { level: 13 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     this.map.remove(this.markers);
@@ -207,16 +252,49 @@ window.CM_Map = {
     this.markers = [];
     for (var i=0; i<markerDataArr.length; i++) {
       var markerData = markerDataArr[i];
-      
+      console.log(markerData);
       var marker = new AMap.Marker({
         position: [markerData.longitude, markerData.latitude],//marker所在的位置
         map: this.map, //创建时直接赋予map属性
         offset: new AMap.Pixel(-42, -42), //相对于基点的偏移位置
         content: '<div class="marker-container large-marker"><div class="text">' +
-                    '<p class="title">'+ markerData[i].cityname +'</p>' + 
-                    '<p>当前存量: '+ markerData[i].curr_stock +'</p>' +
-                    '<p>去化周期: '+ markerData[i].sell_length +'</p>' + 
-                    '<p>年销量: '+ markerData[i].year_sale +'</p>' +
+                    '<p class="title">'+ markerData.platename + '</p>' + 
+                    '<p>成交金额(万): '+ markerData.dealmoney +'</p>' +
+                    '<p>成交套数(套): '+ markerData.dealnum +'</p>' + 
+                    '<p>成交面积(㎡): '+ markerData.dealarea +'</p>' +
+                    '</div></div>',
+        extData: extData,
+      });
+      marker.on('click', function(e) {
+        var _marker = e.target;
+        var _map = _marker.getMap();
+        var newLevel = _marker.getExtData().level;
+        var level = _map.getZoom();
+        if (level < newLevel) {
+          _map.setZoomAndCenter(newLevel, _marker.getPosition());
+        }
+      });
+      this.markers.push(marker);
+    } // done add markers
+  },
+  addCityDetailMarkers: function(markerDataArr, extData = { level: 13 }) {
+    if (!markerDataArr || markerDataArr.length === 0) return;
+    
+    this.map.remove(this.markers);
+    
+    this.markers = [];
+    for (var i=0; i<markerDataArr.length; i++) {
+      var markerData = markerDataArr[i];
+      console.log(markerData);
+      var marker = new AMap.Marker({
+        position: [markerData.longitude, markerData.latitude],//marker所在的位置
+        map: this.map, //创建时直接赋予map属性
+        offset: new AMap.Pixel(-42, -42), //相对于基点的偏移位置
+        content: '<div class="marker-container large-marker"><div class="text">' +
+                    '<p class="title">'+ markerData.cityname +'</p>' + 
+                    '<p>当前存量: '+ markerData.storenum +'</p>' +
+                    '<p>去化周期: '+ markerData.cycle +'</p>' + 
+                    '<p>&emsp;年销量: '+ markerData.dealsalecount +'</p>' +
                     '</div></div>',
         extData: extData,
       });

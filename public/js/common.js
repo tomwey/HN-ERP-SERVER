@@ -30,7 +30,7 @@ $(document).ready(function() {
   
   // 加载城市地图数据
   CM_Network.loadCityMapData((res) => {
-    CM_Map.addSmallMarkers(res.data);
+    CM_Map.addCityListMarkers(res.data);
   }, (err) => {
     alert(err);
   });
@@ -187,6 +187,14 @@ $(document).ready(function() {
     // console.log($("input[type='checkbox']").eq(1).attr("checked").value)
   });
   
+  // 城市切换
+  $('#city').change(function() {
+    // console.log('123');
+    var text = $('#city option:selected').text();
+    // console.log(text);
+    CM_Map.map.setCity(text);
+  });
+  
   // 打开搜索条
   $('#fab-button').click(function() {
     // alert(2);
@@ -213,4 +221,5 @@ $(document).ready(function() {
       alert(err);
     }); // end load
   }); // end search click
+  
 }); // end ready
