@@ -184,7 +184,7 @@ window.CM_Map = {
         } else {
           this.addCityListMarkers(res.data);
           
-          $('.selectpicker').selectpicker('val', '-1');
+          $('#city').selectpicker('val', '-1');
           
           $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
         }
@@ -241,6 +241,10 @@ window.CM_Map = {
       //   $("#stat-panel").animate({ left: '-300px'});
       // }
     });  
+  },
+  removeAllMarkers: function() {
+    this.map.remove(this.markers);
+    this.markers = [];
   },
   addCityListMarkers: function(markerDataArr, extData = { level: 9 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;

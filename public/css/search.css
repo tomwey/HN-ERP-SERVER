@@ -86,6 +86,11 @@ a.filter-btn {
   cursor:pointer;
 }
 
+a.filter-btn i {
+  font-size: 12px;
+  color: rgb(168,168,168);
+}
+
 .search-bar .custom-control {
   border-radius: 0;
   border: 1px solid rgb(216,216,216);
@@ -144,7 +149,7 @@ a.filter-btn {
 }
 
 .buttons-td {
-  width: 15%;
+  width: 18%;
 /*  padding-top: 10px;*/
 }
 

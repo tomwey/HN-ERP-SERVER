@@ -21,8 +21,8 @@
     <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
     
-    <link rel="stylesheet" href="css/style.css?v1.7">
-    <link rel="stylesheet" href="css/search.css?v1.7">
+    <link rel="stylesheet" href="css/style.css?v1.8">
+    <link rel="stylesheet" href="css/search.css?v1.8">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -90,8 +90,8 @@
             </td>
             <td class="buttons-td">
               <div class="buttons">
-                <a class="clear-btn">清除搜索</a>
-                <a class="filter-btn" id="filter-btn">筛选</a>
+                <a class="clear-btn" id="clear-search">清除搜索</a>
+                <a class="filter-btn" id="filter-btn">筛选条件 <i class="glyphicon glyphicon-triangle-bottom"></i></a>
               </div>
               
             </td>
@@ -125,7 +125,7 @@
                       <label class="radio-inline">
                         <input type="radio" name="date_item" value="-1"> 自定义：
                       </label>
-                      <input type="date" name="tStart" pattern="yyyy-MM-dd" id="date-state">
+                      <input type="date" name="tStart" pattern="yyyy-MM-dd" id="date-start">
                         <span>—</span>
                       <input type="date" name="tEnd" id="date-end">
                     </div>
@@ -178,11 +178,11 @@
       <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
       <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/network.js?t=v1.901"></script>
-      <script src="js/ui-utils.js?t=v1.901"></script>
-      <script src="js/map-handle.js?t=v1.901"></script>
+      <script src="js/network.js?t=v1.911"></script>
+      <script src="js/ui-utils.js?t=v1.911"></script>
+      <script src="js/map-handle.js?t=v1.911"></script>
       
-      <script src="js/common.js?t=v1.901"></script>
+      <script src="js/common.js?t=v1.911"></script>
       
   </body>
 </html>

@@ -7,6 +7,36 @@ $(document).ready(function() {
   
   // $('#search-breadcrumb').show();
   
+  function startSearch() {
+    
+    $('#advanced-search-bar').hide();
+    
+    // 加载城市地图数据
+    $('#search-breadcrumb').html('拼命获取数据中...');
+
+    // CM_Network.cityMapDataParams.level = '1';
+    CM_Network.loadCityMapData((res) => {
+      if (!res.data || res.data.length === 0) {
+        $('#search-breadcrumb').html('未找到数据');
+        CM_Map.removeAllMarkers();
+      } else {
+        if ( CM_Network.cityMapDataParams.level === '1' ) {
+          CM_Map.addCityListMarkers(res.data);
+        } else if ( CM_Network.cityMapDataParams.level === '2' ) {
+          CM_Map.addCityDetailMarkers(res.data);
+        } else if ( CM_Network.cityMapDataParams.level === '3' ) {
+          CM_Map.addPlateMarkers(res.data);
+        }
+    
+        $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length
+         +'</span>条数据');
+       }
+    }, (err) => {
+      // alert(err);
+      $('#search-breadcrumb').html('<span style="color: red;">获取数据失败</span>');
+    });
+  }
+  
   // 创建地图
   CM_Map.init();
   
@@ -124,12 +154,46 @@ $(document).ready(function() {
   // 打开高级搜索
   $('#filter-btn').click(function() {
     // console.log(213);
-    $('#advanced-search-bar').show();
+    if ($('#advanced-search-bar').is(":visible")) {
+      $('#advanced-search-bar').hide();
+      $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
+    } else {
+      $('#advanced-search-bar').show();
+      $('#filter-btn i').attr('class','glyphicon glyphicon-triangle-top');
+    }
   });
   
   // 关闭高级搜索
   $('#cancel-search').click(function() {
     $('#advanced-search-bar').hide();
+  });
+  
+  // 清除搜索
+  $('#clear-search').click(function() {
+    // console.log('d-');
+    CM_Network.cityMapDataParams.dateType = '394';
+    CM_Network.cityMapDataParams.bDate = '';
+    CM_Network.cityMapDataParams.eDate = '';
+    
+    CM_Network.cityMapDataParams.paramType = '-1';
+    CM_Network.cityMapDataParams.paramValues = '';
+    
+    CM_Network.cityMapDataParams.plateName = '';
+    
+    $('#plate-keyword').val('');    
+    
+    $('#date-start').val('');
+    $('#date-end').val('');
+    
+    $('#other-filter-start').val('');
+    $('#other-filter-end').val('');
+    
+    $('input:radio:checked').prop('checked', false);
+    $('.filter-items input[type="checkbox"]').each(function() {
+      $(this).prop('checked', false);
+    });
+    
+    startSearch();
   });
   
   // 开始高级查询
@@ -139,9 +203,17 @@ $(document).ready(function() {
     if (value) {
       var dateType = value.toString();
       CM_Network.cityMapDataParams.dateType = dateType
-      if (dateType === '-1') {
-        CM_Network.cityMapDataParams.bDate = '2017-01-09';
-        CM_Network.cityMapDataParams.eDate = '2017-08-10';
+      if (dateType === '-1') { // 自定义日期
+        CM_Network.cityMapDataParams.bDate = $('#date-start').val();//'2017-01-09';
+        CM_Network.cityMapDataParams.eDate = $('#date-end').val();//'2017-08-10';
+        
+        var startDate = new Date($('#date-start').val());
+        var endDate   = new Date($('#date-end').val());
+        
+        if (startDate > endDate) {
+          alert('开始日期不能大于结束日期');
+          return;
+        };
       } else {
         CM_Network.cityMapDataParams.bDate = '';
         CM_Network.cityMapDataParams.eDate = '';
@@ -186,7 +258,41 @@ $(document).ready(function() {
     if (paramValues.length > 0) {
       var text = $('#other-filter-item option:selected').text();
       console.log(text);
-      console.log(paramValues);
+      console.log(paramValues.join(','));
+      
+      if (text === '面积') {
+        CM_Network.cityMapDataParams.paramType = 1;
+      } else if (text === '单价') {
+        CM_Network.cityMapDataParams.paramType = 2;
+      } else if (text === '总价') {
+        CM_Network.cityMapDataParams.paramType = 3;
+      }
+      
+      CM_Network.cityMapDataParams.paramValues = paramValues.join(',');
+    }
+    
+    if (value || paramValues.length > 0) {
+      startSearch();
+      
+      
+      // 加载城市地图数据
+      // $('#search-breadcrumb').html('拼命获取数据中...');
+      // 
+      // CM_Network.cityMapDataParams.level = '1';
+      // CM_Network.loadCityMapData((res) => {
+      //   if ( CM_Network.cityMapDataParams.level === '1' ) {
+      //     CM_Map.addCityListMarkers(res.data);
+      //   } else if ( CM_Network.cityMapDataParams.level === '2' ) {
+      //     CM_Map.addCityDetailMarkers(res.data);
+      //   } else if ( CM_Network.cityMapDataParams.level === '3' ) {
+      //     CM_Map.addPlateMarkers(res.data);
+      //   }
+      //   
+      //   $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
+      // }, (err) => {
+      //   // alert(err);
+      //   $('#search-breadcrumb').html('<span style="color: red;">获取数据失败</span>');
+      // });
     }
     
     // console.log($("input[type='checkbox']").eq(1).attr("checked").value)
@@ -222,22 +328,26 @@ $(document).ready(function() {
     
     // console.log($('#city').val());
     
-    CM_Network.cityMapDataParams.plateName = $('#plate-keyword').val();
-    CM_Network.cityMapDataParams.cityID    = $('#city').val(); 
+    if ($('#plate-keyword').val() && $('#plate-keyword').val().length > 0) {
+      CM_Network.cityMapDataParams.plateName = $('#plate-keyword').val();
+      CM_Network.cityMapDataParams.cityID    = $('#city').val(); 
 
-    CM_Network.loadCityMapData((res) => {
-      console.log(res.data);
-      CM_Map.addSmallMarkers(res.data);
-    }, (err) => {
-      alert(err);
-    }); // end load
+      startSearch();
+    }
+    
+    // CM_Network.loadCityMapData((res) => {
+    //   console.log(res.data);
+    //   CM_Map.addSmallMarkers(res.data);
+    // }, (err) => {
+    //   alert(err);
+    // }); // end load
   }); // end search click
-  
+    
   // 监听marker点击事件
   $(document).on('marker:click', (event, data) => {
     // console.log(data + $('#city'));
     // console.log(data);
-    $('.selectpicker').selectpicker('val', data.cityName);
+    $('#city').selectpicker('val', data.cityName);
     
     // $('#city').val(data.cityName).change();
   });
