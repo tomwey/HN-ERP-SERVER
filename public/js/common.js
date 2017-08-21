@@ -17,7 +17,7 @@ $(document).ready(function() {
     var html = '<option value="-1">全国</option>';
     for (var i = 0; i < cities.length; i++) {
       var city = cities[i];
-      html += '<option value="'+ city.id +'">'+ city.name +'</option>';
+      html += '<option value="'+ city.name +'">'+ city.name +'</option>';
     }
     // console.log(html);
     $('#city').html(html);
@@ -29,6 +29,7 @@ $(document).ready(function() {
   });
   
   // 加载城市地图数据
+  CM_Network.cityMapDataParams.level = '1';
   CM_Network.loadCityMapData((res) => {
     CM_Map.addCityListMarkers(res.data);
   }, (err) => {
@@ -192,7 +193,12 @@ $(document).ready(function() {
     // console.log('123');
     var text = $('#city option:selected').text();
     // console.log(text);
-    CM_Map.map.setCity(text);
+    if (text === '全国') {
+      // CM_Map.map.setCity(null);
+      CM_Map.resetToOrigin();
+    } else {
+      CM_Map.map.setCity(text);
+    }
   });
   
   // 打开搜索条
@@ -209,7 +215,7 @@ $(document).ready(function() {
   // 点击search按钮搜索
   $('#basic-addon2').click(function() {
     
-    console.log($('#city').val());
+    // console.log($('#city').val());
     
     CM_Network.cityMapDataParams.plateName = $('#plate-keyword').val();
     CM_Network.cityMapDataParams.cityID    = $('#city').val(); 
@@ -221,5 +227,11 @@ $(document).ready(function() {
       alert(err);
     }); // end load
   }); // end search click
+  
+  // 监听marker点击事件
+  $(document).on('marker:click', (event, data) => {
+    console.log(data + $('#city'));
+    // $('#city').val(data.cityName).change();
+  });
   
 }); // end ready

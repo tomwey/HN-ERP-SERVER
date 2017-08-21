@@ -5,9 +5,10 @@ window.CM_Network = {
     plateName: '',
     paramType: '-1',
     paramValues: '',
-    dateType: '6',
+    dateType: '394',
     bDate: '',
     eDate: '',
+    level: '1',
   },
   loadCityMapData: function(successCallback, errorCallback) {
     var params = [this.cityMapDataParams.cityID, 
@@ -18,6 +19,7 @@ window.CM_Network = {
                   this.cityMapDataParams.dateType,
                   this.cityMapDataParams.bDate,
                   this.cityMapDataParams.eDate,
+                  this.cityMapDataParams.level,
                   ];
     this.sendReq('城市地图APP', params, successCallback, errorCallback);
   },
