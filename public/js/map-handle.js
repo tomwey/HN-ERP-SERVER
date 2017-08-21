@@ -117,8 +117,83 @@ window.CM_Map = {
   originCenter: [104.057651,30.67383],
   originZoom: 5,
   cityName: '全国',
+  isLoading: false,
   resetToOrigin: function() {
     this.map.setZoomAndCenter(this.originZoom, this.originCenter);
+  },
+  _handleZoomOrMove: function() {
+    
+    if (this.isLoading) return;
+    
+    // console.log('loading');
+    this.isLoading = true;
+    
+    $('#search-breadcrumb').html('拼命获取数据中...');
+    
+    if (this.map.getZoom() >= 9) {
+      // this.map.getCity((res) => {
+        // console.log(res);
+        var city = this.cityName;//res.city;
+        if (city.indexOf('市') >= 0) {
+          city = city.substr(0, city.length - 1);
+        }
+        console.log(city);
+        CM_Network.cityMapDataParams.cityID = city;
+        
+        if (this.map.getZoom() >= 13) {
+          CM_Network.cityMapDataParams.level = '3';
+        } else {
+          CM_Network.cityMapDataParams.level = '2';
+        }
+        
+        CM_Network.loadCityMapData((res) => {
+          // console.log(res.data);
+          this.isLoading = false;
+          if (!res.data || res.data.length === 0) {
+            this.map.remove(this.markers);
+            $('#search-breadcrumb').html('未获取到数据！');
+          } else {
+            if (this.map.getZoom() >= 13) {
+              $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条版块数据');
+              this.addPlateMarkers(res.data);
+            } else {
+              $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
+              this.addCityDetailMarkers(res.data);
+            }
+          }
+        }, (err) => {
+          this.isLoading = false;
+          this.map.remove(this.markers);
+          $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
+        });
+      // });
+    } else {
+      
+      // $('#city').val('全国').change();
+      
+      CM_Network.cityMapDataParams.cityID = '-1';
+      CM_Network.cityMapDataParams.level = '1';
+      CM_Network.loadCityMapData((res) => {
+        console.log(res.data);
+        this.isLoading = false;
+        if (!res.data || res.data.length === 0) {
+          this.map.remove(this.markers);
+          
+          $('#search-breadcrumb').html('未获取到数据！');
+          
+        } else {
+          this.addCityListMarkers(res.data);
+          
+          $('.selectpicker').selectpicker('val', '-1');
+          
+          $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
+        }
+      }, (err) => {
+        this.isLoading = false;
+        
+        $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
+      });
+    }
   },
   init: function() {
     this.map = new AMap.Map('map',{
@@ -134,65 +209,17 @@ window.CM_Map = {
     AMap.event.addListener(this.map,'moveend', () => {
       // CM_UIUtil.hideSearchBar();
       // console.log('ddddddd');
-        console.log('move end');
-        console.log(this.map.getZoom());
+        // console.log('move end');
+        // console.log(this.map.getZoom());
         
-        // this._handleZoomOrMove();
+        this._handleZoomOrMove();
     });
     
     // 监听地图缩放事件
     AMap.event.addListener(this.map,'zoomend',() => {
-      console.log(this.map.getZoom().toString() + ' zoom end');
+      // console.log(this.map.getZoom().toString() + ' zoom end');
       
-      if (this.map.getZoom() >= 9) {
-        this.map.getCity((res) => {
-          // console.log(res);
-          var city = res.city;
-          if (city.indexOf('市') >= 0) {
-            city = city.substr(0, city.length - 1);
-          }
-          
-          CM_Network.cityMapDataParams.cityID = city;
-          
-          if (this.map.getZoom() >= 13) {
-            CM_Network.cityMapDataParams.level = '3';
-          } else {
-            CM_Network.cityMapDataParams.level = '2';
-          }
-          
-          CM_Network.loadCityMapData((res) => {
-            console.log(res.data);
-            if (!res.data || res.data.length === 0) {
-              this.map.remove(this.markers);
-            } else {
-              if (this.map.getZoom() >= 13) {
-                this.addPlateMarkers(res.data);
-              } else {
-                this.addCityDetailMarkers(res.data);
-              }
-              
-            }
-          }, (err) => {
-            this.map.remove(this.markers);
-          });
-        });
-      } else {
-        
-        // $('#city').val('全国').change();
-        
-        CM_Network.cityMapDataParams.cityID = '-1';
-        CM_Network.cityMapDataParams.level = '1';
-        CM_Network.loadCityMapData((res) => {
-          console.log(res.data);
-          if (!res.data || res.data.length === 0) {
-            this.map.remove(this.markers);
-          } else {
-            this.addCityListMarkers(res.data);
-          }
-        }, (err) => {
-          
-        });
-      }
+      this._handleZoomOrMove();
         
       // map.remove(markers);
       // if ( map.getZoom() >= 13 ) {
@@ -237,11 +264,13 @@ window.CM_Map = {
                     '</div></div>',
         extData: tmpData,
       });
-      marker.on('click', function(e) {
+      marker.on('click', (e) => {
         var _marker = e.target;
         var _map = _marker.getMap();
         var newLevel = _marker.getExtData().level;
         var level = _map.getZoom();
+        this.cityName = _marker.getExtData().cityName;
+        
         if (level < newLevel) {
           _map.setZoomAndCenter(newLevel, _marker.getPosition());
         }
@@ -270,7 +299,9 @@ window.CM_Map = {
       var area = markerData.dealarea > 100000 ? (markerData.dealarea / 100000).toFixed(1).toString() + '万㎡' 
       : markerData.dealarea.toString() + '㎡';
       
-      extData.cityName = markerData.cityname;
+      // extData.cityName = markerData.cityname;
+      
+      var tmpData = { level: extData.level, cityName: markerData.cityname };
       
       var marker = new AMap.Marker({
         position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -282,13 +313,16 @@ window.CM_Map = {
                     '<p>成交套数:'+ saleNum +'</p>' + 
                     '<p>成交面积:'+ area +'</p>' +
                     '</div></div>',
-        extData: extData,
+        extData: tmpData,
       });
-      marker.on('click', function(e) {
+      marker.on('click', (e) => {
         var _marker = e.target;
         var _map = _marker.getMap();
         var newLevel = _marker.getExtData().level;
         var level = _map.getZoom();
+        
+        this.cityName = _marker.getExtData().cityName;
+        
         if (level < newLevel) {
           _map.setZoomAndCenter(newLevel, _marker.getPosition());
         }
@@ -310,7 +344,9 @@ window.CM_Map = {
     for (var i=0; i<markerDataArr.length; i++) {
       var markerData = markerDataArr[i];
       console.log(markerData);
-      extData.cityName = markerData.cityname;
+      // extData.cityName = markerData.cityname;
+      
+      var tmpData = { level: extData.level, cityName: markerData.cityname };
       
       var marker = new AMap.Marker({
         position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -322,18 +358,21 @@ window.CM_Map = {
                     '<p>去化周期: '+ markerData.cycle +'</p>' + 
                     '<p>&emsp;年销量: '+ markerData.dealsalecount +'</p>' +
                     '</div></div>',
-        extData: extData,
+        extData: tmpData,
       });
-      marker.on('click', function(e) {
+      marker.on('click', (e) => {
         var _marker = e.target;
         var _map = _marker.getMap();
         var newLevel = _marker.getExtData().level;
         var level = _map.getZoom();
+        
+        this.cityName = _marker.getExtData().cityName;
+        
         if (level < newLevel) {
           _map.setZoomAndCenter(newLevel, _marker.getPosition());
         }
         
-        this.cityName = markerData.cityname;
+        // this.cityName = markerData.cityname;
         
         $(document).trigger('marker:click', _marker.getExtData());
         

@@ -29,11 +29,15 @@ $(document).ready(function() {
   });
   
   // 加载城市地图数据
+  $('#search-breadcrumb').html('拼命获取数据中...');
+  
   CM_Network.cityMapDataParams.level = '1';
   CM_Network.loadCityMapData((res) => {
     CM_Map.addCityListMarkers(res.data);
+    $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
   }, (err) => {
-    alert(err);
+    // alert(err);
+    $('#search-breadcrumb').html('<span style="color: red;">获取全国城市数据失败</span>');
   });
   
   ////////////////////////////// 加载高级搜索里面的基础数据开始 /////////////////////////////////
@@ -193,6 +197,7 @@ $(document).ready(function() {
     // console.log('123');
     var text = $('#city option:selected').text();
     // console.log(text);
+    CM_Map.cityName = text;
     if (text === '全国') {
       // CM_Map.map.setCity(null);
       CM_Map.resetToOrigin();
@@ -230,7 +235,10 @@ $(document).ready(function() {
   
   // 监听marker点击事件
   $(document).on('marker:click', (event, data) => {
-    console.log(data + $('#city'));
+    // console.log(data + $('#city'));
+    // console.log(data);
+    $('.selectpicker').selectpicker('val', data.cityName);
+    
     // $('#city').val(data.cityName).change();
   });
   
