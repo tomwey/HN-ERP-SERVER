@@ -1,10 +1,5 @@
 $(document).ready(function() {
   
-  // $('select').chosen({
-  //   no_results_text:
-  //   "没有找到",
-  // });
-  
   // $('#search-breadcrumb').show();
   
   function startSearch() {

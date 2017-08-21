@@ -147,7 +147,7 @@ window.CM_Map = {
         }
         
         CM_Network.loadCityMapData((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           this.isLoading = false;
           if (!res.data || res.data.length === 0) {
             this.map.remove(this.markers);
