@@ -343,11 +343,11 @@ $(document).ready(function() {
     
   // 监听marker点击事件
   $(document).on('marker:click', (event, data) => {
-    // console.log(data + $('#city'));
     // console.log(data);
+    if (CM_Network.cityMapDataParams.level === '3') {
+      console.log('显示竞品');
+    }
     $('#city').selectpicker('val', data.cityName);
-    
-    // $('#city').val(data.cityName).change();
   });
   
 }); // end ready

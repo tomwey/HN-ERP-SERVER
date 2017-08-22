@@ -111,13 +111,10 @@ window.CM_Map = {
     });
     var scale = new AMap.Scale({});
     this.map.addControl(scale);
-    console.log(this.map.getCenter);
+    console.log(this.map.getCenter());
+    
     // 监听地图移动事件
     AMap.event.addListener(this.map,'moveend', () => {
-      // CM_UIUtil.hideSearchBar();
-      // console.log('ddddddd');
-        // console.log('move end');
-        // console.log(this.map.getZoom());
         
         this._handleZoomOrMove();
     });
@@ -127,26 +124,6 @@ window.CM_Map = {
       // console.log(this.map.getZoom().toString() + ' zoom end');
       
       this._handleZoomOrMove();
-        
-      // map.remove(markers);
-      // if ( map.getZoom() >= 13 ) {
-      //   markers = addLargeMarkers(points2);
-      // } else if (map.getZoom() >= 9) {
-      //   // markers = addLargeMarkers(points);
-      //   loadCityMapData(function (res) {
-      //     console.log(res);
-      //     markers = addLargeMarkers(res.data);
-      //   }, function (error) {
-      //     console.log(error);
-      //   });
-      //     
-      //   // 显示指标面板
-      //   $("#stat-panel").animate({left: '10px'});
-      // } else {
-      //   markers = addSmallMarkers(points);
-      //   // 隐藏指标面板
-      //   $("#stat-panel").animate({ left: '-300px'});
-      // }
     });  
   },
   removeAllMarkers: function() {
@@ -241,7 +218,7 @@ window.CM_Map = {
     return html;
   },
   _createLargeMarkerForData: function(title, dataArr, level, markerData) {
-    var tmpData = { level: level, cityName: markerData.cityname };
+    var tmpData = { level: this.map.getZoom(), cityName: markerData.cityname };
     
     var marker = new AMap.Marker({
       position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -272,7 +249,7 @@ window.CM_Map = {
     });
     return marker;
   },
-  addCityDetailMarkers: function(markerDataArr, extData = { level: 13 }) {
+  addCityDetailMarkers: function(markerDataArr, extData = { level: 9 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     this.map.remove(this.markers);
