@@ -21,8 +21,8 @@
     <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
     
-    <link rel="stylesheet" href="css/style.css?v3">
-    <link rel="stylesheet" href="css/search.css?v3">
+    <link rel="stylesheet" href="css/style.css?v4">
+    <link rel="stylesheet" href="css/search.css?v4">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,7 +52,33 @@
       <div class="panel panel-default">
         <div class="panel-heading">成都指标数据</div>
         <div class="panel-body">
-            这是具体指标数据
+            <table class="table">
+              <tr>
+                <td>版块总数:</td>
+                <td class="value" id="plateCount"></td>
+              </tr>
+              <tr>
+                <td>当前存量:</td>
+                <td class="value" id="storeNum">0</td>
+              </tr>
+              <tr>
+                <td>去化周期:</td>
+                <td class="value" id="cycle">0</td>
+              </tr>
+              <!-- tr>
+                <td>年销量:</td>
+                <td class="value" id="saleCount">0</td>
+              </tr -->
+              <tr>
+                <td>成交均价:</td>
+                <td class="value" id="saleAvgPrice"></td>
+              </tr>
+              <tr>
+                <td>成交套数:</td>
+                <td class="value" id="dealSaleCount"></td>
+              </tr>
+              
+            </table>
         </div>
       </div>
     </div>

@@ -39,8 +39,6 @@ window.CM_Map = {
           return;
         } 
         
-        $("#stat-panel").animate({left: '10px'});
-        
         $('#search-breadcrumb').html('拼命获取数据中...');
         
         CM_Network.loadCityMapData((res) => {
@@ -49,6 +47,7 @@ window.CM_Map = {
           if (!res.data || res.data.length === 0) {
             this.map.remove(this.markers);
             $('#search-breadcrumb').html('未获取到数据！');
+            $("#stat-panel").animate({left: '-300px'});
           } else {
             if (this.map.getZoom() >= 13) {
               $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条版块数据');
@@ -218,7 +217,7 @@ window.CM_Map = {
     return html;
   },
   _createLargeMarkerForData: function(title, dataArr, level, markerData) {
-    var tmpData = { level: this.map.getZoom(), cityName: markerData.cityname };
+    var tmpData = { level: level, cityName: markerData.cityname };
     
     var marker = new AMap.Marker({
       position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -249,14 +248,19 @@ window.CM_Map = {
     });
     return marker;
   },
-  addCityDetailMarkers: function(markerDataArr, extData = { level: 9 }) {
+  addCityDetailMarkers: function(markerDataArr, extData = { level: 13 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
-    this.map.remove(this.markers);
+    // 显示指标数据
+    $("#stat-panel").animate({left: '10px'});
     
+    $("#stat-panel .panel-heading").html(this.cityName + '指标数据');
+    
+    this.map.remove(this.markers);
     this.markers = [];
-    for (var i=0; i<markerDataArr.length; i++) {
-      var markerData = markerDataArr[i];
+    
+    // for (var i=0; i<markerDataArr.length; i++) {
+      var markerData = markerDataArr[0];
       // console.log(markerData);
       // extData.cityName = markerData.cityname;
       
@@ -282,10 +286,25 @@ window.CM_Map = {
         },
       ];
       
+      // 设置指标数据
+      
+      // var dealsalecount = parseInt(markerData.dealsalecount);
+      // saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
+      // saleCount.toString() + '套';
+      
+      $('#stat-panel #plateCount').html(markerData.platecount);
+      
+      $('#stat-panel #storeNum').html(storeNum);
+      $('#stat-panel #cycle').html(cycle);
+      
+      // $('#stat-panel #saleCount').html(saleCount);
+      $('#stat-panel #saleAvgPrice').html(markerData.dealavgprice);
+      $('#stat-panel #dealSaleCount').html(saleCount);
+      
       var marker = this._createLargeMarkerForData(markerData.cityname, dataArr, extData.level, markerData);
       
       this.markers.push(marker);
-    } // done add markers
+    // } // done add markers
   },
 };
            

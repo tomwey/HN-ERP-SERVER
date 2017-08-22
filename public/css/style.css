@@ -24,9 +24,26 @@ body, html {
     
     top: 120px;
     left: -300px;
-    width: 200px;
+    width: 210px;
 }
-                  
+
+.stat-panel .table {
+  padding: 0;
+  margin: 0;
+}
+.stat-panel .table td {
+  border-width: 0;
+  text-align: right;
+  width: 99px;
+/*  background-color: red;*/
+}
+
+.stat-panel .table td.value {
+  text-align: left;
+  width: 110px;
+/*  background-color: green;*/
+}
+               
 .rank-panel {
     position: absolute;
     z-index: 1;
