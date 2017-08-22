@@ -21,6 +21,9 @@ window.CM_Map = {
     if (this.map.getZoom() >= 9) {
       // this.map.getCity((res) => {
         // console.log(res);
+        
+        $('#show-rank-cb').show();
+        
         var city = this.cityName;//res.city;
         if (city.indexOf('市') >= 0) {
           city = city.substr(0, city.length - 1);
@@ -66,6 +69,8 @@ window.CM_Map = {
     } else {
       
       // $('#city').val('全国').change();
+      
+      $('#show-rank-cb').hide();
       
       CM_Network.cityMapDataParams.cityID = '-1';
       CM_Network.cityMapDataParams.level = '1';
