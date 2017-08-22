@@ -59,7 +59,7 @@ body, html {
     
     border-radius: 50%;
     background-color: red;
-    text-align: center;
+/*    text-align: center;*/
     
     /*        text-align: center;*/
 }
@@ -74,6 +74,7 @@ body, html {
 
 .small-marker .marker-content {
   padding-top: 15px;
+  text-align: center;
 }
 
 .small-marker .cityname {
@@ -81,18 +82,55 @@ body, html {
   padding: 0;
   font-size: 14px;
   font-weight: bold;
+/*  margin-bottom: 5px;*/
+}
+
+.small-marker .platecount {
+  margin-top: 3px;
 }
 
 .large-marker {
-    width: 84px;
-    height: 84px;
+    width: 120px;
+    height: 120px;
     
     background-color: rgba(255,0,0,0.8);
+/*    text-align: left;*/
+}
+
+.large-marker .marker-content {
+  padding-top: 15px;
+  padding: 15px 10px 0;
+}
+
+.large-marker .marker-content .table {
+  margin: 0;
+  padding: 0;
+/*  background-color: green;*/
+  margin: 0 auto;
+/*  width: 100%;*/
+}
+
+.large-marker .marker-content .table td {
+  border-width: 0;
+  font-size: 11px;
+  color: white;
+  padding: 0;
+}
+
+.large-marker .marker-content .table td.label {
+  text-align: right;
+/*  width: 20%;*/
+/*  background-color: green;*/
+}
+
+.large-marker .marker-content .table td.value {
+  text-align: left;
+  padding-left: 5px;
 }
 
 .plate-marker {
-    width: 120px;
-    height: 120px;
+    width: 108px;
+    height: 108px;
     
     background-color: rgba(255,0,0,0.8);
 }
@@ -104,17 +142,10 @@ body, html {
     color: white;
 }
 
-/*.plate-marker p {
-  text-align: left;
-}
-
-.plate-marker .title {
-  text-align: center;
-}*/
-
 .large-marker .title, .plate-marker .title {
     padding-top: 10px;
     /*        font-weight: bold;*/
     font-size: 14px;
+    text-align: center;
 }
                   
