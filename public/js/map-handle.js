@@ -128,9 +128,8 @@ window.CM_Map = {
     // console.log('loading');
     this.isLoading = true;
     
-    if (!CM_Network.canLoadData()) return;
-    
-    $('#search-breadcrumb').html('拼命获取数据中...');
+    // console.log(CM_Network.lastCityMapParams);
+    // console.log(CM_Network.cityMapDataParams);
     
     if (this.map.getZoom() >= 9) {
       // this.map.getCity((res) => {
@@ -147,6 +146,13 @@ window.CM_Map = {
         } else {
           CM_Network.cityMapDataParams.level = '2';
         }
+        
+        if (!CM_Network.canLoadData()) {
+          this.isLoading = false;
+          return;
+        } 
+        
+        $('#search-breadcrumb').html('拼命获取数据中...');
         
         CM_Network.loadCityMapData((res) => {
           console.log(res.data);
@@ -175,6 +181,14 @@ window.CM_Map = {
       
       CM_Network.cityMapDataParams.cityID = '-1';
       CM_Network.cityMapDataParams.level = '1';
+      
+      if (!CM_Network.canLoadData()) {
+        this.isLoading = false;
+        return;
+      } 
+      
+      $('#search-breadcrumb').html('拼命获取数据中...');
+      
       CM_Network.loadCityMapData((res) => {
         console.log(res.data);
         this.isLoading = false;

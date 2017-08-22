@@ -161,6 +161,7 @@ $(document).ready(function() {
   // 关闭高级搜索
   $('#cancel-search').click(function() {
     $('#advanced-search-bar').hide();
+    $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
   });
   
   // 清除搜索
@@ -187,6 +188,8 @@ $(document).ready(function() {
     $('.filter-items input[type="checkbox"]').each(function() {
       $(this).prop('checked', false);
     });
+    
+    $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
     
     startSearch();
   });
