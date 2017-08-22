@@ -39,6 +39,8 @@ window.CM_Map = {
           return;
         } 
         
+        $("#stat-panel").animate({left: '10px'});
+        
         $('#search-breadcrumb').html('拼命获取数据中...');
         
         CM_Network.loadCityMapData((res) => {
@@ -73,6 +75,8 @@ window.CM_Map = {
         this.isLoading = false;
         return;
       } 
+      
+      $("#stat-panel").animate({left: '-300px'});
       
       $('#search-breadcrumb').html('拼命获取数据中...');
       
