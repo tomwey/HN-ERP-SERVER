@@ -53,7 +53,7 @@ window.CM_UIUtil = {
   loadRankData: function(dataType, successCallback, failureCallback) {
     
     var cityID = CM_Network.cityMapDataParams.cityID;
-    var dateType = '394';
+    var dateType = CM_Network.cityMapDataParams.dateType;
     
     var arr = ['销售面积㎡', '价格（元/㎡）', '供应面积㎡', '存量㎡'];
     

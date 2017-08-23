@@ -272,6 +272,7 @@ $(document).ready(function() {
     if (value || paramValues.length > 0) {
       startSearch();
       
+      $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
       
       // 加载城市地图数据
       // $('#search-breadcrumb').html('拼命获取数据中...');
