@@ -350,4 +350,10 @@ $(document).ready(function() {
     $('#city').selectpicker('val', data.cityName);
   });
   
+  CM_Network.sendReq('城市地图竞品数据APP', ['-1','1','36'], (res) => {
+    console.log(res);
+  }, (err) => {
+    console.log(err);
+  });
+  
 }); // end ready

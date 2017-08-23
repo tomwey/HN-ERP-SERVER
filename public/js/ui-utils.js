@@ -9,7 +9,7 @@ $('#show-rank').change(function() {
     });
   } else {
     $("#rank-panel").animate({
-      right: '-200px',
+      right: '-400px',
       // opacity: '0.5',
       // height: '150px',
       // width: '150px'

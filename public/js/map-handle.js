@@ -22,7 +22,7 @@ window.CM_Map = {
       // this.map.getCity((res) => {
         // console.log(res);
         
-        $('#show-rank-cb').show();
+        // $('#show-rank-cb').show();
         
         var city = this.cityName;//res.city;
         if (city.indexOf('市') >= 0) {
@@ -70,7 +70,7 @@ window.CM_Map = {
       
       // $('#city').val('全国').change();
       
-      $('#show-rank-cb').hide();
+      // $('#show-rank-cb').hide();
       
       CM_Network.cityMapDataParams.cityID = '-1';
       CM_Network.cityMapDataParams.level = '1';
