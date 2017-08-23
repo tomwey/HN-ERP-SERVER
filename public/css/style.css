@@ -48,33 +48,52 @@ body, html {
     position: absolute;
     z-index: 1;
     
-    width: 340px;
+    width: 300px;
     top: 120px;
-    right: -400px;
+    right: -310px;
 }
 
 .rank-panel .panel {
-  height: 500px;
+/*  height: 500px;*/
   width: 100%;
 }
 
-.rank-panel .with-nav-tabs .panel-heading a {
-  color: rgb(111,111,111);
-  font-size: 12px;
+.rank-panel .panel .panel-body {
+/*  height: 100%;*/
+  height: 450px;
+  overflow: auto;
 }
 
-.rank-panel .panel .table th {
+/*.rank-panel .with-nav-tabs .panel-heading a {
+  color: rgb(111,111,111);
+  font-size: 12px;
+}*/
+
+.rank-panel .panel .table th, .rank-panel .panel .table td {
   text-align: center;
 }
 
-.rank-panel .panel-body {
-/*        padding: 15px;*/
+.rank-box {
+  margin-bottom: 20px;
 }
 
-.rank-panel .panel-heading>.nav-tabs {
+.rank-box h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.rank-box .table {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+/*.rank-panel .panel-heading>.nav-tabs {
     border-bottom: none;
     margin-bottom: -10px;
-} 
+} */
 
 .fab-button {
   position: absolute;

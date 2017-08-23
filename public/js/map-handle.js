@@ -45,7 +45,7 @@ window.CM_Map = {
         $('#search-breadcrumb').html('拼命获取数据中...');
         
         CM_Network.loadCityMapData((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.isLoading = false;
           if (!res.data || res.data.length === 0) {
             this.map.remove(this.markers);
@@ -85,7 +85,7 @@ window.CM_Map = {
       $('#search-breadcrumb').html('拼命获取数据中...');
       
       CM_Network.loadCityMapData((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.isLoading = false;
         if (!res.data || res.data.length === 0) {
           this.map.remove(this.markers);
@@ -104,6 +104,12 @@ window.CM_Map = {
         
         $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
       });
+    }
+    
+    // 加载排名数据
+    if ( $('#show-rank').is(':checked') ) {
+      // 只有在打开了显示排名的时候才加载数据
+      CM_UIUtil.loadAllRankData();
     }
   },
   init: function() {

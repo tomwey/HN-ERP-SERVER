@@ -319,6 +319,10 @@ $(document).ready(function() {
   // 关闭搜索条
   $('#close-search-bar-button').click(function() {
     CM_UIUtil.hideSearchBar();
+    CM_UIUtil.hideRankPanel();
+    CM_UIUtil.hideStatPanel();
+    
+    $('#show-rank').prop('checked', false);
   });
   
   // 点击search按钮搜索
@@ -350,10 +354,10 @@ $(document).ready(function() {
     $('#city').selectpicker('val', data.cityName);
   });
   
-  CM_Network.sendReq('城市地图竞品数据APP', ['-1','1','36'], (res) => {
-    console.log(res);
-  }, (err) => {
-    console.log(err);
-  });
+  // CM_Network.sendReq('城市地图竞品数据APP', ['-1','1','36'], (res) => {
+  //   console.log(res);
+  // }, (err) => {
+  //   console.log(err);
+  // });
   
 }); // end ready

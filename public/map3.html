@@ -85,65 +85,63 @@
     
     <!-- 排名数据 -->
     <div id="rank-panel" class="rank-panel">
-      <div class="panel with-nav-tabs panel-default">
-        <div class="panel-heading">
-          <ul id="myTabs" class="nav nav-tabs">
-            <li class="active">
-              <a href="#tab1" data-toggle="tab">成交面积</a>
-            </li>
-            <li class="">
-              <a href="#tab2" data-toggle="tab">供应面积</a>
-            </li>
-            <li class="">
-              <a href="#tab3" data-toggle="tab">价格</a>
-            </li>
-            <li class="">
-              <a href="#tab4" data-toggle="tab">当前存量</a>
-            </li>
-          </ul>
-        </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" id="panel-heading">城市TOP5排名</div>
         <div class="panel-body">
-          <div class="tab-content">
-            <div class="tab-pane fade active in" id="tab1">
-              <table class="table table-bordered" id="deal-area-table">
-                <tr>
-                  <th>排名</th>
-                  <th>板块</th>
-                  <th>销售面积㎡</th>
-                </tr>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="tab2">
-              <table class="table table-bordered" id="supply-area-table">
-                <tr>
-                  <th>排名</th>
-                  <th>板块</th>
-                  <th>供应面积㎡</th>
-                </tr>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="tab3">
-              <table class="table table-bordered" id="price-table">
-                <tr>
-                  <th>排名</th>
-                  <th>板块</th>
-                  <th>价格（元/㎡）</th>
-                </tr>
-              </table>
-            </div>
-            <div class="tab-pane fade" id="tab4">
-              <table class="table table-bordered" id="storenum-table">
-                <tr>
-                  <th>排名</th>
-                  <th>板块</th>
-                  <th>存量㎡</th>
-                </tr>
-              </table>
-            </div>
-            
+          <!-- 成交面积 -->
+          <div class="rank-box">
+            <h2>成交面积排名</h2>
+            <table class="table table-bordered" id="rank-table-1">
+              <tr>
+                <th width="20%">排名</th>
+                <th width="30%" class="th-content">城市</th>
+                <th width="50%">销售面积㎡</th>
+              </tr>
+            </table>
+            <div id="loading-rank-1"></div>
           </div>
-        </div>
-      </div>
+          
+          <!-- 供应面积 -->
+          <div class="rank-box">
+            <h2>供应面积排名</h2>
+            <table class="table table-bordered" id="rank-table-3">
+              <tr>
+                <th width="20%">排名</th>
+                <th width="30%" class="th-content">城市</th>
+                <th width="50%">供应面积㎡</th>
+              </tr>
+            </table>
+            <div id="loading-rank-3"></div>
+          </div>
+          
+          <!-- 价格排名 -->
+          <div class="rank-box">
+            <h2>价格排名</h2>
+            <table class="table table-bordered" id="rank-table-2">
+              <tr>
+                <th width="20%">排名</th>
+                <th width="30%" class="th-content">城市</th>
+                <th width="50%">价格（元/㎡）</th>
+              </tr>
+            </table>
+            <div id="loading-rank-2"></div>
+          </div>
+          
+          <!-- 当前存量排名 -->
+          <div class="rank-box">
+            <h2>当前存量排名</h2>
+            <table class="table table-bordered" id="rank-table-4">
+              <tr>
+                <th width="20%">排名</th>
+                <th width="30%" class="th-content">城市</th>
+                <th width="50%">存量㎡</th>
+              </tr>
+            </table>
+            <div id="loading-rank-4"></div>
+          </div>
+          
+        </div> <!-- end panel-body -->
+      </div> <!-- end panel -->
       
     </div>
     
