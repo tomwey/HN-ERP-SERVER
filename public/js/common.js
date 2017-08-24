@@ -326,8 +326,7 @@ $(document).ready(function() {
     CM_UIUtil.hideSearchBar();
     CM_UIUtil.hideRankPanel();
     CM_UIUtil.hideStatPanel();
-    
-    $('#show-rank').prop('checked', false);
+    CM_UIUtil.hideJPPanel();
   });
   
   // 点击search按钮搜索

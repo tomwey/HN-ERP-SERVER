@@ -163,7 +163,7 @@ body, html {
 .marker-container {
     
     border-radius: 50%;
-    background-color: rgb(231,90,22);
+    background-color: rgba(231,90,22,0.9);
 /*    text-align: center;*/
     
     /*        text-align: center;*/
@@ -198,7 +198,7 @@ body, html {
     width: 120px;
     height: 120px;
     
-    background-color: rgba(255,0,0,0.8);
+/*    background-color: rgba(255,0,0,0.8);*/
 /*    text-align: left;*/
 }
 

@@ -292,7 +292,7 @@ window.CM_Map = {
     // 显示指标数据
     $("#stat-panel").animate({left: '10px'});
     
-    $("#stat-panel .panel-heading").html(this.cityName + '指标数据');
+    $("#stat-panel #panel-heading").html(this.cityName + '指标数据');
     
     this.map.remove(this.markers);
     this.markers = [];

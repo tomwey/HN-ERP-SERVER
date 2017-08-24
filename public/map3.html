@@ -50,7 +50,12 @@
     <!-- 指标数据 -->
     <div id="stat-panel" class="stat-panel">
       <div class="panel panel-primary">
-        <div class="panel-heading">成都指标数据</div>
+        <div class="panel-heading clearfix">
+          <span id="panel-heading">成都指标数据</span>
+          <div class="close-panel pull-right">
+            <a onclick="CM_UIUtil.hideStatPanel();" class="close">×</a>
+          </div>
+        </div>
         <div class="panel-body">
             <table class="table">
               <tr>
@@ -86,9 +91,9 @@
     <!-- 竞品数据 -->
     <div id="jp-panel" class="jp-panel" style="display:none">
       <div class="panel panel-primary">
-        <div class="panel-heading clearfix" id="panel-heading">城东板块-TOP5竞品
+        <div class="panel-heading clearfix"><span id="panel-heading">城东板块-TOP5竞品</span>
           <div class="close-panel pull-right">
-            <a id="close-panel-btn" class="close">×</a>
+            <a onclick="CM_UIUtil.hideJPPanel();" class="close">×</a>
           </div>
         </div>
         <div class="panel-body">
@@ -160,7 +165,11 @@
     <!-- 排名数据 -->
     <div id="rank-panel" class="rank-panel">
       <div class="panel panel-primary">
-        <div class="panel-heading" id="panel-heading">城市TOP5排名</div>
+        <div class="panel-heading clearfix"><span id="panel-heading">城市TOP5排名</span>
+          <div class="close-panel pull-right">
+            <a onclick="CM_UIUtil.hideRankPanel();" class="close">×</a>
+          </div>
+        </div>
         <div class="panel-body">
           <!-- 成交面积 -->
           <div class="rank-box">
@@ -330,11 +339,11 @@
       <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
       <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/network.js?d"></script>
-      <script src="js/ui-utils.js?d"></script>
-      <script src="js/map-handle.js?d"></script>
+      <script src="js/network.js?3"></script>
+      <script src="js/ui-utils.js?3"></script>
+      <script src="js/map-handle.js?3"></script>
       
-      <script src="js/common.js?d"></script>
+      <script src="js/common.js?3"></script>
       
   </body>
 </html>

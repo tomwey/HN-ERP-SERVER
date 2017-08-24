@@ -41,6 +41,8 @@ window.CM_UIUtil = {
     });
   },
   hideRankPanel: function() {
+    $('#show-rank').prop('checked', false);
+    
     $("#rank-panel").animate({
       right: '-310px',
       // opacity: '0.5',
