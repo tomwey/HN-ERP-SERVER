@@ -255,7 +255,7 @@ window.CM_Map = {
     return html;
   },
   _createLargeMarkerForData: function(title, dataArr, level, markerData) {
-    var tmpData = { level: level, cityName: markerData.cityname };
+    var tmpData = { level: level, cityName: markerData.cityname, plateid: markerData.plateid };
     
     var marker = new AMap.Marker({
       position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -304,7 +304,7 @@ window.CM_Map = {
       
       var storeNum = parseFloat(markerData.storenum);
       storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(0).toString() + '万㎡' : 
-      storeNum.toFixed(0).toFixed(0).toString() + '㎡';
+      storeNum.toFixed(0).toString() + '㎡';
       
       var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '%';
       

@@ -351,21 +351,29 @@ $(document).ready(function() {
     
   // 监听marker点击事件
   $(document).on('marker:click', (event, data) => {
-    // console.log(data);
+    console.log(data);
     if (CM_Network.cityMapDataParams.level === '3') {
       //console.log('显示竞品');
-      showJPPanelData();
+      showJPPanelData(data);
     }
     
     // 更新城市下拉列表显示
     $('#city').selectpicker('val', data.cityName);
   });
   
-  function showJPPanelData() {
+  function showJPPanelData(data) {
     $('#jp-panel #jp-loading').show();
     $('#jp-panel #more-stat').html('');
     
-    CM_Network.sendReq('', [], (res) => {
+    // 加载竞品均价数据
+    CM_Network.sendReq('城市地图排行数据APP', [data.plateid, '', ''], (res) => {
+      console.log(res);
+    }, (err) => {
+      
+    });
+    
+    // 加载竞品数据
+    CM_Network.sendReq('城市地图竞品数据APP', [data.plateid,'',''], (res) => {
       if (!res || !res.data || res.data.length === 0) {
         $('#jp-panel #jp-loading').html('暂无数据');
         // $('#jp-panel #more-stat').html('');
