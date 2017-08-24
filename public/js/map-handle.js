@@ -53,7 +53,7 @@ window.CM_Map = {
             $("#stat-panel").animate({left: '-300px'});
           } else {
             if (this.map.getZoom() >= 13) {
-              $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条版块数据');
+              $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条板块数据');
               this.addPlateMarkers(res.data);
             } else {
               $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
@@ -158,7 +158,7 @@ window.CM_Map = {
         content: '<div class="marker-container small-marker"> ' +
                     '<div class="marker-content"> ' + 
                       '<p class="cityname">'+ markerData.cityname +'</p>' + 
-                      '<p class="platecount">' + (markerData.platecount > 99 ? '99+' : markerData.platecount) + '个版块</p> ' + 
+                      '<p class="platecount">' + (markerData.platecount > 99 ? '99+' : markerData.platecount) + '个板块</p> ' + 
                     '</div></div>',
         extData: tmpData,
       });

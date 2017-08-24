@@ -53,28 +53,29 @@ window.CM_UIUtil = {
   loadRankData: function(dataType, successCallback, failureCallback) {
     
     var cityID = CM_Network.cityMapDataParams.cityID;
-    var dateType = CM_Network.cityMapDataParams.dateType;
+    // var dateType = CM_Network.cityMapDataParams.dateType;
     
-    var arr = ['销售面积㎡', '价格（万元/㎡）', '供应面积㎡', '存量㎡'];
+    var arr = ['销售面积㎡', '价格（元/㎡）', '供应面积㎡', '存量㎡'];
     
     var loading = $('#loading-rank-' + dataType);
     loading.html('数据加载中...');
     
     var isCity = cityID === '-1' ? true : false;
+    var cid = isCity ? '0' : cityID;
     
-    CM_Network.sendReq('城市地图竞品数据APP', [cityID, dataType, dateType], (res) => {
+    var str = '';
+    var typeIndex = parseInt(dataType) - 1;
+    if (typeIndex < arr.length) {
+      str = arr[typeIndex];
+    }
+    var html = '<tr><th width="20%">排名</th><th width="30%" class="th-content">'+ (isCity ? '城市' : '板块') +'</th><th width="50%">'+ str +'</th></tr>';
+    
+    CM_Network.sendReq('城市地图排行数据APP', [cid, '0', dataType, '0'], (res) => {
       // console.log(res);
       if (!res || !res.data || res.data.length === 0) {
         loading.html('无数据显示');
       } else {
         loading.html('');
-        
-        var str = '';
-        var typeIndex = parseInt(dataType) - 1;
-        if (typeIndex < arr.length) {
-          str = arr[typeIndex];
-        }
-        var html = '<tr><th width="20%">排名</th><th width="30%" class="th-content">'+ (isCity ? '城市' : '板块') +'</th><th width="50%">'+ str +'</th></tr>';
         
         var data = res.data;
         for (var i = 0; i < data.length; i++) {
@@ -82,14 +83,17 @@ window.CM_UIUtil = {
           var name = isCity ? item.cityname : item.platename;
           html += '<tr><td>'+ (i+1).toString() +'</td><td>'+ name +'</td><td>'+ item.value +'</td></tr>';
         }
-        
-        $('#rank-table-' + dataType).html(html);
       }
+      
+      $('#rank-table-' + dataType).html(html);
       
       successCallback(res);
     }, (err) => {
       // console.log(err);
       loading.html('数据加载失败!');
+      
+      $('#rank-table-' + dataType).html(html);
+      
       failureCallback(err);
     });
   },
@@ -102,7 +106,7 @@ window.CM_UIUtil = {
     
     var rankTitle = $('#rank-panel #panel-heading');
     if (cityID === '-1') {
-      rankTitle.html('全国城市TOP5排名');
+      rankTitle.html('城市近半年TOP5排名');
       $('#rank-panel .th-content').text('城市');
     } else {
       rankTitle.html(cityID + '板块TOP5排名');
