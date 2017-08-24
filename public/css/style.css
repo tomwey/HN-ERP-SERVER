@@ -18,6 +18,16 @@ body, html {
     z-index: 0;
 }
 
+.panel-primary {
+  border-color: rgb(231,90,22);
+  
+}
+
+.panel-primary > .panel-heading {
+  background-color: rgb(231,90,22);
+  border-color: rgb(231,90,22);
+}
+
 .stat-panel {
     position: absolute;
     z-index: 1;
@@ -95,6 +105,42 @@ body, html {
     margin-bottom: -10px;
 } */
 
+/* 竞品数据 */
+.jp-panel {
+  position: absolute;
+  z-index: 10;
+  
+  width: 440px;
+  top: 50%;
+  left: 50%;
+  
+  margin-left: -200px;
+  margin-top: -200px;
+}
+
+.jp-panel .table th, .jp-panel .table td {
+  text-align: center;
+}
+
+.jp-panel .panel-heading {
+  text-align: center;
+}
+
+/*.jp-panel .close-panel {
+  float: right;
+}*/
+
+.jp-panel .avg-stat {
+/*  text-align: center;*/
+  margin-bottom: 10px;
+/*  font-weight: bold;*/
+  font-size: 16px;
+}
+
+.jp-panel .avg-stat .gc-avgprice {
+  padding-left: 30px;
+}
+
 .fab-button {
   position: absolute;
   z-index: 1;
@@ -117,7 +163,7 @@ body, html {
 .marker-container {
     
     border-radius: 50%;
-    background-color: red;
+    background-color: rgb(231,90,22);
 /*    text-align: center;*/
     
     /*        text-align: center;*/

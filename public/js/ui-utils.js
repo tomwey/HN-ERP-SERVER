@@ -11,6 +11,10 @@ $('#show-rank').change(function() {
   }
 });
 
+$('#close-panel-btn').click(function() {
+  CM_UIUtil.hideJPPanel();
+});
+
 window.CM_UIUtil = {
   showSearchBar: function() {
     $('#search-bar-container').animate({
@@ -49,6 +53,12 @@ window.CM_UIUtil = {
   },
   hideStatPanel: function() {
     $("#stat-panel").animate({left: '-300px'});
+  },
+  showJPPanel: function() {
+    $('#jp-panel').show();
+  },
+  hideJPPanel: function() {
+    $('#jp-panel').hide();
   },
   loadRankData: function(dataType, successCallback, failureCallback) {
     

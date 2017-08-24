@@ -21,8 +21,8 @@
     <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
     
-    <link rel="stylesheet" href="css/style.css?v5">
-    <link rel="stylesheet" href="css/search.css?v5">
+    <link rel="stylesheet" href="css/style.css?v12">
+    <link rel="stylesheet" href="css/search.css?v12">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -49,7 +49,7 @@
     
     <!-- 指标数据 -->
     <div id="stat-panel" class="stat-panel">
-      <div class="panel panel-default">
+      <div class="panel panel-primary">
         <div class="panel-heading">成都指标数据</div>
         <div class="panel-body">
             <table class="table">
@@ -83,9 +83,83 @@
       </div>
     </div>
     
+    <!-- 竞品数据 -->
+    <div id="jp-panel" class="jp-panel" style="display:none">
+      <div class="panel panel-primary">
+        <div class="panel-heading clearfix" id="panel-heading">城东板块-TOP5竞品
+          <div class="close-panel pull-right">
+            <a id="close-panel-btn" class="close">×</a>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div id="jp-loading" style="display:none">数据加载中...</div>
+          <div id="jp-content">
+            <div class="avg-stat">
+              <span class="yf-avgprice">洋房均价：20000</span>
+              <span class="gc-avgprice">高层均价：15000</span>
+            </div>
+            <div class="more-stat" id="more-stat">
+              <!-- table class="table table-bordered">
+                <tr>
+                  <th>产品类型</th>
+                  <th>面积段</th>
+                  <th>成交套数</th>
+                  <th>套数占比</th>
+                  <th>月均成交套数</th>
+                </tr>
+                <tr>
+                  <td>刚需</td>
+                  <td>100㎡以下</td>
+                  <td>1129384</td>
+                  <td>30%</td>
+                  <td>10098</td>
+                </tr>
+                <tr>
+                  <td>刚改</td>
+                  <td>100-120㎡</td>
+                  <td>1129384</td>
+                  <td>30%</td>
+                  <td>10098</td>
+                </tr>
+                <tr>
+                  <td>首改</td>
+                  <td>120-140㎡</td>
+                  <td>1129384</td>
+                  <td>30%</td>
+                  <td>10098</td>
+                </tr>
+                <tr>
+                  <td>二改</td>
+                  <td>140-160㎡</td>
+                  <td>1129384</td>
+                  <td>30%</td>
+                  <td>10098</td>
+                </tr>
+                <tr>
+                  <td>再改</td>
+                  <td>160-180㎡</td>
+                  <td>1129384</td>
+                  <td>30%</td>
+                  <td>10098</td>
+                </tr>
+                <tr>
+                  <td>终极</td>
+                  <td>180㎡以上</td>
+                  <td>1129384</td>
+                  <td>30%</td>
+                  <td>10098</td>
+                </tr>
+              </table -->
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- 排名数据 -->
     <div id="rank-panel" class="rank-panel">
-      <div class="panel panel-default">
+      <div class="panel panel-primary">
         <div class="panel-heading" id="panel-heading">城市TOP5排名</div>
         <div class="panel-body">
           <!-- 成交面积 -->
@@ -256,11 +330,11 @@
       <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 
       <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/network.js?1.23"></script>
-      <script src="js/ui-utils.js?1.32"></script>
-      <script src="js/map-handle.js?31.2"></script>
+      <script src="js/network.js?d"></script>
+      <script src="js/ui-utils.js?d"></script>
+      <script src="js/map-handle.js?d"></script>
       
-      <script src="js/common.js?3"></script>
+      <script src="js/common.js?d"></script>
       
   </body>
 </html>

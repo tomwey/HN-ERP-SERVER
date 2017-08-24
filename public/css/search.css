@@ -61,11 +61,16 @@
 }
 
 .search-bar .search-btn {
-  background-color: rgb(200,62,59);
+  background-color: rgb(231,90,22);
   color: white;
   border-radius: 0;
   cursor: pointer;
 /*  border: 1px solid rgb(216,216,216);*/
+}
+
+.btn-danger {
+  background-color: rgb(231,90,22);
+  border-color: rgb(231,90,22);
 }
 
 a.search-btn {

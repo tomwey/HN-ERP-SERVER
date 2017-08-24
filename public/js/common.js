@@ -354,10 +354,43 @@ $(document).ready(function() {
   $(document).on('marker:click', (event, data) => {
     // console.log(data);
     if (CM_Network.cityMapDataParams.level === '3') {
-      console.log('显示竞品');
+      //console.log('显示竞品');
+      showJPPanelData();
     }
+    
+    // 更新城市下拉列表显示
     $('#city').selectpicker('val', data.cityName);
   });
+  
+  function showJPPanelData() {
+    $('#jp-panel #jp-loading').show();
+    $('#jp-panel #more-stat').html('');
+    
+    CM_Network.sendReq('', [], (res) => {
+      if (!res || !res.data || res.data.length === 0) {
+        $('#jp-panel #jp-loading').html('暂无数据');
+        // $('#jp-panel #more-stat').html('');
+      } else {
+        $('#jp-panel #jp-loading').hide();
+        
+        var html = '<table class="table table-bordered"><tr><th>产品类型</th><th>面积段</th><th>成交套数</th><th>套数占比</th><th>月均成交套数</th></tr>';
+        for (var i = 0; i < res.data.length; i++) {
+          var data = res.data[i];
+          var prodType = '';
+          var areaType = '';
+          var dealNum  = '';
+          var dealPercent = '';
+          var avgDealNum = '';
+          html += '<tr><td>'+ prodType +'</td><td>'+ areaType +'</td><td>'+ dealNum +'</td><td>'+ dealPercent +'</td><td>'+ avgDealNum +'</td></tr>';
+        }
+        
+        html += '</table>';
+        $('#jp-panel #more-stat').html(html);
+      }
+    }, (err) => {
+      $('#jp-panel #jp-loading').html('数据加载失败！');
+    });
+  }
   
   // CM_Network.sendReq('城市地图竞品数据APP', ['-1','1','36'], (res) => {
   //   console.log(res);
