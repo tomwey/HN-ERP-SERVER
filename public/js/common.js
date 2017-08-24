@@ -42,6 +42,10 @@ $(document).ready(function() {
     var html = '<option value="-1">全国</option>';
     for (var i = 0; i < cities.length; i++) {
       var city = cities[i];
+      
+      // 保存一份城市名单
+      CM_Map.cityNames.push(city.name);
+      
       html += '<option value="'+ city.name +'">'+ city.name +'</option>';
     }
     // console.log(html);

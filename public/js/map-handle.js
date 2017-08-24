@@ -5,8 +5,16 @@ window.CM_Map = {
   originZoom: 5,
   cityName: '全国',
   isLoading: false,
+  cityNames: [],
   resetToOrigin: function() {
     this.map.setZoomAndCenter(this.originZoom, this.originCenter);
+  },
+  _formatCityName: function(city) {
+    var cityname = city;
+    if (cityname.indexOf('市') >= 0) {
+      cityname = cityname.substr(0, cityname.length - 1);
+    }
+    return cityname;
   },
   _handleZoomOrMove: function() {
     
@@ -19,16 +27,26 @@ window.CM_Map = {
     // console.log(CM_Network.cityMapDataParams);
     
     if (this.map.getZoom() >= 9) {
-      // this.map.getCity((res) => {
-        // console.log(res);
         
         // $('#show-rank-cb').show();
+        /*this.map.getCity((res) => {
+          // console.log(res);
+          // console.log(this.map.getBounds());
+          var currentCity = this._formatCityName(res.city);
+          // console.log(this.cityNames);
+          if (this.cityNames.indexOf(currentCity) >= 0) {
+            console.log('限制到当前城市');
+            
+            this.limitMapShowToBounds();
+          } else {
+            
+          }
+        });*/
         
-        var city = this.cityName;//res.city;
-        if (city.indexOf('市') >= 0) {
-          city = city.substr(0, city.length - 1);
-        }
+        var city = this._formatCityName(this.cityName);
+        
         console.log(city);
+        
         CM_Network.cityMapDataParams.cityID = city;
         
         if (this.map.getZoom() >= 13) {
@@ -71,6 +89,9 @@ window.CM_Map = {
       // $('#city').val('全国').change();
       
       // $('#show-rank-cb').hide();
+      
+      // 清除地图显示限制
+      this.clearLimitMapShowToBounds();
       
       CM_Network.cityMapDataParams.cityID = '-1';
       CM_Network.cityMapDataParams.level = '1';
@@ -135,6 +156,12 @@ window.CM_Map = {
       
       this._handleZoomOrMove();
     });  
+  },
+  limitMapShowToBounds: function() {
+    this.map.setLimitBounds(this.map.getBounds());
+  },
+  clearLimitMapShowToBounds: function() {
+    this.map.clearLimitBounds();
   },
   removeAllMarkers: function() {
     this.map.remove(this.markers);
