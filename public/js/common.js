@@ -5,6 +5,7 @@ $(document).ready(function() {
   function startSearch() {
     
     $('#advanced-search-bar').hide();
+    $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
     
     // 加载城市地图数据
     $('#search-breadcrumb').html('拼命获取数据中...');
@@ -362,8 +363,10 @@ $(document).ready(function() {
   });
   
   function showJPPanelData(data) {
-    console.log('show...');
+    // console.log('show...');
     $('#jp-panel').show();
+    
+    $('#jp-panel #panel-heading').html(data.platename + '板块-TOP5竞品数据');
     
     $('#jp-panel #jp-loading').show();
     $('#jp-panel #more-stat').html('');
@@ -387,7 +390,7 @@ $(document).ready(function() {
     
     // 加载竞品数据
     CM_Network.sendReq('城市地图竞品数据APP', [data.plateid,'',''], (res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (!res || !res.data || res.data.length === 0) {
         $('#jp-panel #jp-loading').html('暂无数据');
         // $('#jp-panel #more-stat').html('');

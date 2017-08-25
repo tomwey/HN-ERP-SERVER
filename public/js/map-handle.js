@@ -49,7 +49,7 @@ window.CM_Map = {
         
         CM_Network.cityMapDataParams.cityID = city;
         
-        if (this.map.getZoom() >= 13) {
+        if (this.map.getZoom() >= 12) {
           CM_Network.cityMapDataParams.level = '3';
         } else {
           CM_Network.cityMapDataParams.level = '2';
@@ -70,7 +70,7 @@ window.CM_Map = {
             $('#search-breadcrumb').html('未获取到数据！');
             $("#stat-panel").animate({left: '-300px'});
           } else {
-            if (this.map.getZoom() >= 13) {
+            if (this.map.getZoom() >= 12) {
               $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条板块数据');
               this.addPlateMarkers(res.data);
             } else {
@@ -206,7 +206,7 @@ window.CM_Map = {
       this.markers.push(marker);
     } // done add markers
   },
-  addPlateMarkers: function(markerDataArr, extData = { level: 13 }) {
+  addPlateMarkers: function(markerDataArr, extData = { level: 12 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     this.map.remove(this.markers);
@@ -255,7 +255,7 @@ window.CM_Map = {
     return html;
   },
   _createLargeMarkerForData: function(title, dataArr, level, markerData) {
-    var tmpData = { level: level, cityName: markerData.cityname, plateid: markerData.plateid };
+    var tmpData = { level: level, cityName: markerData.cityname, plateid: markerData.plateid, platename: markerData.platename };
     
     var marker = new AMap.Marker({
       position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -286,7 +286,7 @@ window.CM_Map = {
     });
     return marker;
   },
-  addCityDetailMarkers: function(markerDataArr, extData = { level: 13 }) {
+  addCityDetailMarkers: function(markerDataArr, extData = { level: 12 }) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     // 显示指标数据
