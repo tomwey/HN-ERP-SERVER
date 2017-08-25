@@ -7,9 +7,8 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    /*        margin: 0;*/
 }
-               
+              
 #map {
     width: 100%;
     height: 100%;
@@ -58,9 +57,11 @@ body, html {
     position: absolute;
     z-index: 1;
     
-    width: 300px;
+    width: 320px;
+/*    height: 300px;*/
     top: 120px;
     right: -310px;
+    overflow: auto;
 }
 
 .rank-panel .panel {
@@ -70,7 +71,7 @@ body, html {
 
 .rank-panel .panel .panel-body {
 /*  height: 100%;*/
-  height: 450px;
+  height: 360px;
   overflow: auto;
 }
 
@@ -110,12 +111,12 @@ body, html {
   position: absolute;
   z-index: 10;
   
-  width: 440px;
-  top: 50%;
+  width: 460px;
+  top: 120px;
   left: 50%;
   
-  margin-left: -200px;
-  margin-top: -200px;
+  margin-left: -230px;
+/*  margin-top: -200px;*/
 }
 
 .jp-panel .table th, .jp-panel .table td {
@@ -124,6 +125,12 @@ body, html {
 
 .jp-panel .panel-heading {
   text-align: center;
+}
+
+.jp-panel .panel .panel-body {
+/*  height: 100%;*/
+  height: 360px;
+  overflow: auto;
 }
 
 /*.jp-panel .close-panel {
@@ -153,7 +160,9 @@ body, html {
   text-align: center;
   
   border-radius: 50%;
+  -ms-border-radius: 20px;
   background-color: rgba(0,0,0,0.7);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000,endColorstr=#B2000000);
   color: white;
   font-size: 18px;
   cursor: pointer;

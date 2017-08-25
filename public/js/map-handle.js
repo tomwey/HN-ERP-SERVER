@@ -18,7 +18,7 @@ window.CM_Map = {
   },
   _handleZoomOrMove: function() {
     
-    if (this.isLoading) return;
+    if (CM_Map.isLoading) return;
     
     // console.log('loading');
     this.isLoading = true;
@@ -62,25 +62,25 @@ window.CM_Map = {
         
         $('#search-breadcrumb').html('拼命获取数据中...');
         
-        CM_Network.loadCityMapData((res) => {
+        CM_Network.loadCityMapData(function(res) {
           console.log(res.data);
-          this.isLoading = false;
+          CM_Map.isLoading = false;
           if (!res.data || res.data.length === 0) {
-            this.map.remove(this.markers);
+            CM_Map.map.remove(CM_Map.markers);
             $('#search-breadcrumb').html('未获取到数据！');
             $("#stat-panel").animate({left: '-300px'});
           } else {
-            if (this.map.getZoom() >= 12) {
+            if (CM_Map.map.getZoom() >= 12) {
               $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条板块数据');
-              this.addPlateMarkers(res.data);
+              CM_Map.addPlateMarkers(res.data);
             } else {
               $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
-              this.addCityDetailMarkers(res.data);
+              CM_Map.addCityDetailMarkers(res.data);
             }
           }
-        }, (err) => {
-          this.isLoading = false;
-          this.map.remove(this.markers);
+        }, function(err) {
+          CM_Map.isLoading = false;
+          CM_Map.map.remove(CM_Map.markers);
           $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
         });
       // });
@@ -105,23 +105,23 @@ window.CM_Map = {
       
       $('#search-breadcrumb').html('拼命获取数据中...');
       
-      CM_Network.loadCityMapData((res) => {
+      CM_Network.loadCityMapData(function(res) {
         // console.log(res.data);
-        this.isLoading = false;
+        CM_Map.isLoading = false;
         if (!res.data || res.data.length === 0) {
-          this.map.remove(this.markers);
+          CM_Map.map.remove(CM_Map.markers);
           
           $('#search-breadcrumb').html('未获取到数据！');
           
         } else {
-          this.addCityListMarkers(res.data);
+          CM_Map.addCityListMarkers(res.data);
           
           $('#city').selectpicker('val', '-1');
           
           $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
         }
-      }, (err) => {
-        this.isLoading = false;
+      }, function(err) {
+        CM_Map.isLoading = false;
         
         $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
       });
@@ -142,19 +142,19 @@ window.CM_Map = {
     });
     var scale = new AMap.Scale({});
     this.map.addControl(scale);
-    console.log(this.map.getCenter());
+    // console.log(this.map.getCenter());
     
     // 监听地图移动事件
-    AMap.event.addListener(this.map,'moveend', () => {
+    AMap.event.addListener(this.map,'moveend', function() {
         
-        this._handleZoomOrMove();
+        CM_Map._handleZoomOrMove();
     });
     
     // 监听地图缩放事件
-    AMap.event.addListener(this.map,'zoomend',() => {
+    AMap.event.addListener(this.map,'zoomend',function() {
       // console.log(this.map.getZoom().toString() + ' zoom end');
       
-      this._handleZoomOrMove();
+      CM_Map._handleZoomOrMove();
     });  
   },
   limitMapShowToBounds: function() {
@@ -167,7 +167,7 @@ window.CM_Map = {
     this.map.remove(this.markers);
     this.markers = [];
   },
-  addCityListMarkers: function(markerDataArr, extData = { level: 9 }) {
+  addCityListMarkers: function(markerDataArr) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     this.map.remove(this.markers);
@@ -176,7 +176,7 @@ window.CM_Map = {
     for (var i=0; i<markerDataArr.length; i++) {
       var markerData = markerDataArr[i];
       
-      var tmpData = { level: extData.level, cityName: markerData.cityname };
+      var tmpData = { level: 9, cityName: markerData.cityname };
       
       var marker = new AMap.Marker({
         position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -189,12 +189,13 @@ window.CM_Map = {
                     '</div></div>',
         extData: tmpData,
       });
-      marker.on('click', (e) => {
+      marker.on('click', function(e) {
         var _marker = e.target;
         var _map = _marker.getMap();
         var newLevel = _marker.getExtData().level;
         var level = _map.getZoom();
-        this.cityName = _marker.getExtData().cityName;
+        
+        CM_Map.cityName = _marker.getExtData().cityName;
         
         if (level < newLevel) {
           _map.setZoomAndCenter(newLevel, _marker.getPosition());
@@ -206,7 +207,7 @@ window.CM_Map = {
       this.markers.push(marker);
     } // done add markers
   },
-  addPlateMarkers: function(markerDataArr, extData = { level: 12 }) {
+  addPlateMarkers: function(markerDataArr) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     this.map.remove(this.markers);
@@ -239,7 +240,7 @@ window.CM_Map = {
           value: area,
         },];
       
-      var marker = this._createLargeMarkerForData(markerData.platename, dataArr, extData.level, markerData);
+      var marker = this._createLargeMarkerForData(markerData.platename, dataArr, 12, markerData);
       
       this.markers.push(marker);
     } // done add markers
@@ -265,13 +266,13 @@ window.CM_Map = {
       extData: tmpData,
     });
     
-    marker.on('click', (e) => {
+    marker.on('click', function(e) {
       var _marker = e.target;
       var _map = _marker.getMap();
       var newLevel = _marker.getExtData().level;
       var level = _map.getZoom();
       
-      this.cityName = _marker.getExtData().cityName;
+      CM_Map.cityName = _marker.getExtData().cityName;
       
       if (level < newLevel) {
         _map.setZoomAndCenter(newLevel, _marker.getPosition());
@@ -286,7 +287,7 @@ window.CM_Map = {
     });
     return marker;
   },
-  addCityDetailMarkers: function(markerDataArr, extData = { level: 12 }) {
+  addCityDetailMarkers: function(markerDataArr) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
     // 显示指标数据
@@ -339,7 +340,7 @@ window.CM_Map = {
       $('#stat-panel #saleAvgPrice').html(markerData.dealavgprice);
       $('#stat-panel #dealSaleCount').html(saleCount);
       
-      var marker = this._createLargeMarkerForData(markerData.cityname, dataArr, extData.level, markerData);
+      var marker = this._createLargeMarkerForData(markerData.cityname, dataArr, 12, markerData);
       
       this.markers.push(marker);
     // } // done add markers

@@ -11,7 +11,7 @@ $(document).ready(function() {
     $('#search-breadcrumb').html('拼命获取数据中...');
 
     // CM_Network.cityMapDataParams.level = '1';
-    CM_Network.loadCityMapData((res) => {
+    CM_Network.loadCityMapData(function(res) {
       if (!res.data || res.data.length === 0) {
         $('#search-breadcrumb').html('未找到数据');
         CM_Map.removeAllMarkers();
@@ -27,7 +27,7 @@ $(document).ready(function() {
         $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length
          +'</span>条数据');
        }
-    }, (err) => {
+    }, function(err) {
       // alert(err);
       $('#search-breadcrumb').html('<span style="color: red;">获取数据失败</span>');
     });
@@ -37,7 +37,7 @@ $(document).ready(function() {
   CM_Map.init();
   
   // 获取城市
-  CM_Network.sendReq('城市地图字典APP', ['1', '-1'], (res) => {
+  CM_Network.sendReq('城市地图字典APP', ['1', '-1'], function(res) {
     // console.log(res.data);
     var cities = res.data;
     var html = '<option value="-1">全国</option>';
@@ -53,7 +53,7 @@ $(document).ready(function() {
     $('#city').html(html);
     
     // $("#city").trigger("chosen:updated");
-  }, (err) => {
+  }, function(err) {
     // console.log(err);
     $('#city').html('');
   });
@@ -62,10 +62,10 @@ $(document).ready(function() {
   $('#search-breadcrumb').html('拼命获取数据中...');
   
   CM_Network.cityMapDataParams.level = '1';
-  CM_Network.loadCityMapData((res) => {
+  CM_Network.loadCityMapData(function(res) {
     CM_Map.addCityListMarkers(res.data);
     $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
-  }, (err) => {
+  }, function(err) {
     // alert(err);
     $('#search-breadcrumb').html('<span style="color: red;">获取全国城市数据失败</span>');
   });
@@ -73,7 +73,7 @@ $(document).ready(function() {
   ////////////////////////////// 加载高级搜索里面的基础数据开始 /////////////////////////////////
   // 加载时间条件
   $('#filter-time-items').html('加载数据中...');
-  CM_Network.sendReq('公共字典APP', ['城市地图前端日期段'], (res) => {
+  CM_Network.sendReq('公共字典APP', ['城市地图前端日期段'], function(res) {
     console.log(res);
     html = ''
     var items = res.data;
@@ -87,7 +87,7 @@ $(document).ready(function() {
       html += '<label class="radio-inline"><input type="radio" name="date_item" id="date_item" value="'+ item.dic_value +'">'+ item.dic_name +'</label>';
     }
     $('#filter-time-items').html(html);
-  }, (err) => {
+  }, function(err) {
     // console.log(err);
     $('#filter-time-items').html('<span style="color:red;">获取数据出错</span>');
   });
@@ -122,7 +122,7 @@ $(document).ready(function() {
     $('#other-filter-items').html('加载数据中...');
     // console.log(val);
     $('#other-filter-item').prop('disabled', true);
-    CM_Network.sendReq('公共字典APP', [val], (res) => {
+    CM_Network.sendReq('公共字典APP', [val], function(res) {
       // console.log(res);
       html = ''
       var items = res.data;
@@ -139,7 +139,7 @@ $(document).ready(function() {
       
       $('#other-filter-item').prop('disabled', false);
       
-    }, (err) => {
+    }, function(err) {
       // console.log(err);
       $('#other-filter-items').html('<span style="color:red;">获取数据出错</span>');
       
@@ -351,7 +351,7 @@ $(document).ready(function() {
   }); // end search click
     
   // 监听marker点击事件
-  $(document).on('marker:click', (event, data) => {
+  $(document).on('marker:click', function(event, data) {
     console.log(data);
     if (CM_Network.cityMapDataParams.level === '3') {
       //console.log('显示竞品');
@@ -372,7 +372,7 @@ $(document).ready(function() {
     $('#jp-panel #more-stat').html('');
     
     // 加载竞品均价数据
-    CM_Network.sendReq('城市地图排行数据APP', [data.plateid, '', ''], (res) => {
+    CM_Network.sendReq('城市地图排行数据APP', [data.plateid, '', ''], function(res) {
       // console.log(res);
       if (!res || !res.data || res.data.length === 0) {
         $('#avg-stat').html('暂无竞品均价数据');
@@ -384,12 +384,12 @@ $(document).ready(function() {
         }
         $('#avg-stat').html(html);
       }
-    }, (err) => {
+    }, function(err) {
       $('#avg-stat').html('获取均价数据失败');
     });
     
     // 加载竞品数据
-    CM_Network.sendReq('城市地图竞品数据APP', [data.plateid,'',''], (res) => {
+    CM_Network.sendReq('城市地图竞品数据APP', [data.plateid,'',''], function(res) {
       // console.log(res.data);
       if (!res || !res.data || res.data.length === 0) {
         $('#jp-panel #jp-loading').html('暂无数据');
@@ -411,15 +411,9 @@ $(document).ready(function() {
         html += '</table>';
         $('#jp-panel #more-stat').html(html);
       }
-    }, (err) => {
+    }, function(err) {
       $('#jp-panel #jp-loading').html('数据加载失败！');
     });
   }
-  
-  // CM_Network.sendReq('城市地图竞品数据APP', ['-1','1','36'], (res) => {
-  //   console.log(res);
-  // }, (err) => {
-  //   console.log(err);
-  // });
   
 }); // end ready

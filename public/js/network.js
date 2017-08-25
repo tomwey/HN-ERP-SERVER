@@ -43,7 +43,7 @@ window.CM_Network = {
     }
     
     var body = JSON.stringify(params);
-    console.log('请求参数：' + body);
+    // console.log('请求参数：' + body);
     
     $.ajax({
       url: 'http://erp20-app.heneng.cn:16681/',

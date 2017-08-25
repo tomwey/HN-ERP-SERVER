@@ -82,7 +82,7 @@ window.CM_UIUtil = {
     }
     var html = '<tr><th width="20%">排名</th><th width="30%" class="th-content">'+ (isCity ? '城市' : '板块') +'</th><th width="50%">'+ str +'</th></tr>';
     
-    CM_Network.sendReq('城市地图排行数据APP', [cid, '0', dataType, '0'], (res) => {
+    CM_Network.sendReq('城市地图排行数据APP', [cid, '0', dataType, '0'], function (res) {
       // console.log(res);
       if (!res || !res.data || res.data.length === 0) {
         loading.html('无数据显示');
@@ -100,7 +100,7 @@ window.CM_UIUtil = {
       $('#rank-table-' + dataType).html(html);
       
       successCallback(res);
-    }, (err) => {
+    }, function (err) {
       // console.log(err);
       loading.html('数据加载失败!');
       
@@ -126,9 +126,9 @@ window.CM_UIUtil = {
     }
     
     for (var i = 0; i < types.length; i++) {
-      _this.loadRankData(types[i], (res) => {
+      _this.loadRankData(types[i], function (res) {
         console.log(res);
-      }, (err) => {
+      }, function (err) {
         console.log(err);
       });
     }

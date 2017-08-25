@@ -1,5 +1,7 @@
 .search-bar-container {
   background-color: rgba(255,255,255,0.9);
+  /* 处理IE8颜色透明度的问题 */
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5FFFFFF,endColorstr=#E5FFFFFF);
   width: 100%;
   position: absolute;
   z-index: 1;
