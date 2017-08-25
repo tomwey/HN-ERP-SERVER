@@ -1,3 +1,22 @@
+// jquery datepicker 汉化
+jQuery(function($){
+$.datepicker.regional['zh-CN'] = {
+closeText: '关闭',
+prevText: '<上月',
+nextText: '下月>',
+currentText: '今天',
+monthNames: ['一月','二月','三月','四月','五月','六月',
+'七月','八月','九月','十月','十一月','十二月'],
+monthNamesShort: ['一','二','三','四','五','六',
+'七','八','九','十','十一','十二'],
+dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+dayNamesMin: ['日','一','二','三','四','五','六'],
+dateFormat: 'yy-mm-dd', firstDay: 1,
+isRTL: false};
+$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+});
+
 $(document).ready(function() {
   
   // $('#search-breadcrumb').show();
@@ -278,28 +297,8 @@ $(document).ready(function() {
       startSearch();
       
       $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
-      
-      // 加载城市地图数据
-      // $('#search-breadcrumb').html('拼命获取数据中...');
-      // 
-      // CM_Network.cityMapDataParams.level = '1';
-      // CM_Network.loadCityMapData((res) => {
-      //   if ( CM_Network.cityMapDataParams.level === '1' ) {
-      //     CM_Map.addCityListMarkers(res.data);
-      //   } else if ( CM_Network.cityMapDataParams.level === '2' ) {
-      //     CM_Map.addCityDetailMarkers(res.data);
-      //   } else if ( CM_Network.cityMapDataParams.level === '3' ) {
-      //     CM_Map.addPlateMarkers(res.data);
-      //   }
-      //   
-      //   $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
-      // }, (err) => {
-      //   // alert(err);
-      //   $('#search-breadcrumb').html('<span style="color: red;">获取数据失败</span>');
-      // });
     }
-    
-    // console.log($("input[type='checkbox']").eq(1).attr("checked").value)
+
   });
   
   // 城市切换
@@ -415,5 +414,40 @@ $(document).ready(function() {
       $('#jp-panel #jp-loading').html('数据加载失败！');
     });
   }
+  
+  // 添加jquery日期
+  $('#date-start').datepicker({
+    showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
+    // minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
+    // maxDate: +17,//最大日期，同上
+    defaultDate : +4, //默认日期，同上
+    duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
+    firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
+    nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
+    prevText : '上一月',//设置“上个月”链接的显示文字。
+    showButtonPanel: true,//是否显示按钮面板 
+    currentText : '今天',//设置当天按钮的文本内容，此按钮需要通过showButtonPanel参数的设置才显示。
+    gotoCurrent : false,//如果设置为true，则点击当天按钮时，将移至当前已选中的日期，而不是今天。
+    onSelect: function(dateText, inst) {
+      $('#date-end').datepicker("option","minDate",dateText);
+    },
+  });
+  
+  $('#date-end').datepicker({
+    showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
+    // minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
+    // maxDate: +17,//最大日期，同上
+    defaultDate : +4, //默认日期，同上
+    duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
+    firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
+    nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
+    prevText : '上一月',//设置“上个月”链接的显示文字。
+    showButtonPanel: true,//是否显示按钮面板 
+    currentText : '今天',//设置当天按钮的文本内容，此按钮需要通过showButtonPanel参数的设置才显示。
+    gotoCurrent : false,//如果设置为true，则点击当天按钮时，将移至当前已选中的日期，而不是今天。
+    onSelect: function(dateText, inst) {
+      $('#date-start').datepicker("option","maxDate",dateText);
+    },
+  });
   
 }); // end ready
