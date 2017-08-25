@@ -362,18 +362,32 @@ $(document).ready(function() {
   });
   
   function showJPPanelData(data) {
+    console.log('show...');
+    $('#jp-panel').show();
+    
     $('#jp-panel #jp-loading').show();
     $('#jp-panel #more-stat').html('');
     
     // 加载竞品均价数据
     CM_Network.sendReq('城市地图排行数据APP', [data.plateid, '', ''], (res) => {
-      console.log(res);
+      // console.log(res);
+      if (!res || !res.data || res.data.length === 0) {
+        $('#avg-stat').html('暂无竞品均价数据');
+      } else {
+        var html = '';
+        for (var i = 0; i < res.data.length; i++) {
+          var data = res.data[i];
+          html += '<span class="avgprice">'+ data.name +'：'+ data.avgprice +'</span>&emsp;';
+        }
+        $('#avg-stat').html(html);
+      }
     }, (err) => {
-      
+      $('#avg-stat').html('获取均价数据失败');
     });
     
     // 加载竞品数据
     CM_Network.sendReq('城市地图竞品数据APP', [data.plateid,'',''], (res) => {
+      console.log(res.data);
       if (!res || !res.data || res.data.length === 0) {
         $('#jp-panel #jp-loading').html('暂无数据');
         // $('#jp-panel #more-stat').html('');
@@ -383,11 +397,11 @@ $(document).ready(function() {
         var html = '<table class="table table-bordered"><tr><th>产品类型</th><th>面积段</th><th>成交套数</th><th>套数占比</th><th>月均成交套数</th></tr>';
         for (var i = 0; i < res.data.length; i++) {
           var data = res.data[i];
-          var prodType = '';
-          var areaType = '';
-          var dealNum  = '';
-          var dealPercent = '';
-          var avgDealNum = '';
+          var prodType = data.name;
+          var areaType = data.partvalue;
+          var dealNum  = data.dealnum;
+          var dealPercent = parseFloat(data.dealnumpercent).toFixed(0).toString() + '%';
+          var avgDealNum = data.avgnum;
           html += '<tr><td>'+ prodType +'</td><td>'+ areaType +'</td><td>'+ dealNum +'</td><td>'+ dealPercent +'</td><td>'+ avgDealNum +'</td></tr>';
         }
         
