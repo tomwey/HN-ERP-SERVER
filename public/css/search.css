@@ -148,7 +148,10 @@ a.filter-btn i {
 
 .show-rank-td .cb-size {
   font-size: 16px;
-  color: rgb(58,58,58);
+  color: rgb(81,81,81);
+  font-weight: normal;
+/*  color: rgb(58,58,58);*/
+/*  background-color: red;*/
 }
 
 .search-breadcrumb {
@@ -156,7 +159,8 @@ a.filter-btn i {
 }
 
 .buttons-td {
-  width: 18%;
+  width: 25%;
+/*  background-color: red;*/
 /*  padding-top: 10px;*/
 }
 

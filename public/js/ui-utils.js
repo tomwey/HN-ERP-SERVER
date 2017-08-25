@@ -44,7 +44,7 @@ window.CM_UIUtil = {
     $('#show-rank').prop('checked', false);
     
     $("#rank-panel").animate({
-      right: '-310px',
+      right: '-350px',
       // opacity: '0.5',
       // height: '150px',
       // width: '150px'
