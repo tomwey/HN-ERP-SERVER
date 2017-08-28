@@ -56,6 +56,16 @@ window.CM_UIUtil = {
   hideStatPanel: function() {
     $("#stat-panel").animate({left: '-300px'});
   },
+  showStatData: function(name, dataArr) {
+    $("#stat-panel #panel-heading").html(name + '指标数据');
+    
+    var html = '';
+    for (var i = 0; i < dataArr.length; i++) {
+      var data = dataArr[i];
+      html += '<tr><td>'+ data.label +':</td><td class="value">'+ data.value +'</td></tr>';
+    }
+    $("#stat-panel .table").html(html);
+  },
   showJPPanel: function() {
     $('#jp-panel').show();
   },

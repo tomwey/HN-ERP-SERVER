@@ -355,7 +355,7 @@ $(document).ready(function() {
     if (CM_Network.cityMapDataParams.level === '3') {
       //console.log('显示竞品');
       // 显示指标数据
-      // showStatData();
+      showPlateStatData(data);
       
       // 显示竞品数据
       showJPPanelData(data);
@@ -364,6 +364,63 @@ $(document).ready(function() {
     // 更新城市下拉列表显示
     $('#city').selectpicker('val', data.cityName);
   });
+  
+  function showPlateStatData(markerData) {    
+    CM_UIUtil.showStatPanel();
+    
+    // console.log(markerData.dealmoney);
+    var dealMoney = markerData.dealmoney;
+    var dealNum   = markerData.dealnum;
+    var dealArea  = markerData.dealarea;
+    
+    if (dealMoney === 'NULL' && dealNum === 'NULL' && dealArea === 'NULL') {
+      
+      var storeNum = parseFloat(markerData.storenum);
+      storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(1).toString() + '万㎡' : 
+      storeNum.toFixed(0).toString() + '㎡';
+      
+      var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '%';
+      
+      var saleCount = parseInt(markerData.dealsalecount);
+      saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
+      saleCount.toString() + '套';
+            
+      // 显示指标数据
+      CM_UIUtil.showStatPanel();
+      var arr = [
+        {label: '当前存量', value: storeNum},
+        {label: '去化周期', value: cycle},
+        {label: '成交均价', value: markerData.dealavgprice},
+        {label: '成交套数', value: saleCount},
+      ];
+      console.log(arr);
+      
+      CM_UIUtil.showStatData(markerData.platename, arr);
+      
+    } else {
+      var v1,v2,v3;
+      
+      // 显示成交面积，成交套数，成交金额
+        v1 = markerData.dealmoney >= 100000000 ? (markerData.dealmoney / 100000000).toFixed(1).toString() + '亿' 
+      : (markerData.dealmoney / 10000.00).toFixed(1).toString() + '万';
+      v2 = markerData.dealnum >= 10000 ? (markerData.dealnum / 10000).toFixed(1).toString() + '万套' 
+      : markerData.dealnum.toString() + '套';
+      v3 = markerData.dealarea >= 100000 ? (markerData.dealarea / 100000).toFixed(1).toString() + '万㎡' 
+      : markerData.dealarea.toString() + '㎡';
+    
+      var dataArr = [{
+                label: '成交金额',
+                value: v1,
+              },{
+                label: '成交套数',
+                value: v2,
+              },{
+                label: '成交面积',
+                value: v3,
+              },];
+      CM_UIUtil.showStatData(markerData.platename, dataArr);
+    }
+  }
   
   function showJPPanelData(data) {
     // console.log('show...');

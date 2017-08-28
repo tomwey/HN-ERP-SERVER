@@ -68,7 +68,6 @@ window.CM_Map = {
           if (!res.data || res.data.length === 0) {
             CM_Map.map.remove(CM_Map.markers);
             $('#search-breadcrumb').html('未获取到数据！');
-            // $("#stat-panel").animate({left: '-300px'});
             CM_UIUtil.hideStatPanel();
           } else {
             if (CM_Map.map.getZoom() >= 12) {
@@ -102,7 +101,8 @@ window.CM_Map = {
         return;
       } 
       
-      $("#stat-panel").animate({left: '-300px'});
+      // $("#stat-panel").animate({left: '-300px'});
+      CM_UIUtil.hideStatPanel();
       
       $('#search-breadcrumb').html('拼命获取数据中...');
       
@@ -217,29 +217,80 @@ window.CM_Map = {
     for (var i=0; i<markerDataArr.length; i++) {
       var markerData = markerDataArr[i];
       // console.log(markerData);
-      var money = markerData.dealmoney >= 100000000 ? (markerData.dealmoney / 100000000).toFixed(1).toString() + '亿' 
+      
+      // console.log(markerData.dealmoney);
+      var dealMoney = markerData.dealmoney;
+      var dealNum   = markerData.dealnum;
+      var dealArea  = markerData.dealarea;
+      
+      var v1,v2,v3,dataArr;
+      if (dealMoney === 'NULL' && dealNum === 'NULL' && dealArea === 'NULL') {
+        // 显示当前存量，去化周期，年销量
+        var storeNum = parseFloat(markerData.storenum);
+        storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(1).toString() + '万㎡' : 
+        storeNum.toFixed(0).toString() + '㎡';
+      
+        var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '%';
+      
+        var saleCount = parseInt(markerData.dealsalecount);
+        saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
+        saleCount.toString() + '套';
+      
+        dataArr = [{
+            label: '当前存量',
+            value: storeNum,
+          },{
+            label: '去化周期',
+            value: cycle,
+          },{
+            label: '年销量',
+            value: saleCount,
+          },
+        ];
+      } else {
+        // 显示成交面积，成交套数，成交金额
+        v1 = markerData.dealmoney >= 100000000 ? (markerData.dealmoney / 100000000).toFixed(1).toString() + '亿' 
       : (markerData.dealmoney / 10000.00).toFixed(1).toString() + '万';
-      
-      var saleNum = markerData.dealnum >= 10000 ? (markerData.dealnum / 10000).toFixed(1).toString() + '万套' 
+      v2 = markerData.dealnum >= 10000 ? (markerData.dealnum / 10000).toFixed(1).toString() + '万套' 
       : markerData.dealnum.toString() + '套';
-      
-      var area = markerData.dealarea >= 100000 ? (markerData.dealarea / 100000).toFixed(1).toString() + '万㎡' 
+      v3 = markerData.dealarea >= 100000 ? (markerData.dealarea / 100000).toFixed(1).toString() + '万㎡' 
       : markerData.dealarea.toString() + '㎡';
+      
+      dataArr = [{
+                label: '成交金额',
+                value: v1,
+              },{
+                label: '成交套数',
+                value: v2,
+              },{
+                label: '成交面积',
+                value: v3,
+              },];
+      }
+      
+      // var money = markerData.dealmoney >= 100000000 ? (markerData.dealmoney / 100000000).toFixed(1).toString() + '亿' 
+      // : (markerData.dealmoney / 10000.00).toFixed(1).toString() + '万';
+      // 
+      // var saleNum = markerData.dealnum >= 10000 ? (markerData.dealnum / 10000).toFixed(1).toString() + '万套' 
+      // : markerData.dealnum.toString() + '套';
+      // 
+      // var area = markerData.dealarea >= 100000 ? (markerData.dealarea / 100000).toFixed(1).toString() + '万㎡' 
+      // : markerData.dealarea.toString() + '㎡';
       
       // extData.cityName = markerData.cityname;
       
       // var tmpData = { level: extData.level, cityName: markerData.cityname };
       
-      var dataArr = [{
-          label: '成交金额',
-          value: money,
-        },{
-          label: '成交套数',
-          value: saleNum,
-        },{
-          label: '成交面积',
-          value: area,
-        },];
+      // var dataArr = [{
+      //     label: '成交金额',
+      //     value: money,
+      //   },{
+      //     label: '成交套数',
+      //     value: saleNum,
+      //   },{
+      //     label: '成交面积',
+      //     value: area,
+      //   },];
       
       var marker = this._createLargeMarkerForData(markerData.platename, dataArr, 12, markerData);
       
@@ -257,7 +308,9 @@ window.CM_Map = {
     return html;
   },
   _createLargeMarkerForData: function(title, dataArr, level, markerData) {
-    var tmpData = { level: level, cityName: markerData.cityname, plateid: markerData.plateid, platename: markerData.platename };
+    var tmpData = markerData;//{ level: level, cityName: markerData.cityname, plateid: markerData.plateid, platename: markerData.platename };
+    tmpData.level = level;
+    tmpData.cityName = markerData.cityname;
     
     var marker = new AMap.Marker({
       position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -291,11 +344,6 @@ window.CM_Map = {
   addCityDetailMarkers: function(markerDataArr) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
-    // 显示指标数据
-    $("#stat-panel").animate({left: '10px'});
-    
-    $("#stat-panel #panel-heading").html(this.cityName + '指标数据');
-    
     this.map.remove(this.markers);
     this.markers = [];
     
@@ -305,7 +353,7 @@ window.CM_Map = {
       // extData.cityName = markerData.cityname;
       
       var storeNum = parseFloat(markerData.storenum);
-      storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(0).toString() + '万㎡' : 
+      storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(1).toString() + '万㎡' : 
       storeNum.toFixed(0).toString() + '㎡';
       
       var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '%';
@@ -326,20 +374,21 @@ window.CM_Map = {
         },
       ];
       
+      // 显示指标数据
+      CM_UIUtil.showStatPanel();
+      var arr = [
+        {label: '板块总数', value: markerData.platecount},
+        {label: '当前存量', value: storeNum},
+        {label: '去化周期', value: cycle},
+        {label: '成交均价', value: markerData.dealavgprice},
+        {label: '成交套数', value: saleCount},
+      ];
+      CM_UIUtil.showStatData(this.cityName, arr);
       // 设置指标数据
       
       // var dealsalecount = parseInt(markerData.dealsalecount);
       // saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
       // saleCount.toString() + '套';
-      
-      $('#stat-panel #plateCount').html(markerData.platecount);
-      
-      $('#stat-panel #storeNum').html(storeNum);
-      $('#stat-panel #cycle').html(cycle);
-      
-      // $('#stat-panel #saleCount').html(saleCount);
-      $('#stat-panel #saleAvgPrice').html(markerData.dealavgprice);
-      $('#stat-panel #dealSaleCount').html(saleCount);
       
       var marker = this._createLargeMarkerForData(markerData.cityname, dataArr, 12, markerData);
       
