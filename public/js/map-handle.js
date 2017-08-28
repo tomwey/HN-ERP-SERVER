@@ -68,13 +68,14 @@ window.CM_Map = {
           if (!res.data || res.data.length === 0) {
             CM_Map.map.remove(CM_Map.markers);
             $('#search-breadcrumb').html('未获取到数据！');
-            $("#stat-panel").animate({left: '-300px'});
+            // $("#stat-panel").animate({left: '-300px'});
+            CM_UIUtil.hideStatPanel();
           } else {
             if (CM_Map.map.getZoom() >= 12) {
-              $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条板块数据');
+              $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条板块数据');
               CM_Map.addPlateMarkers(res.data);
             } else {
-              $('#search-breadcrumb').html('在“'+ city +'”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
+              $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
               CM_Map.addCityDetailMarkers(res.data);
             }
           }
@@ -118,7 +119,7 @@ window.CM_Map = {
           
           $('#city').selectpicker('val', '-1');
           
-          $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
+          $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
         }
       }, function(err) {
         CM_Map.isLoading = false;

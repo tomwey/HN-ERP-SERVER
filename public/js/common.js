@@ -32,7 +32,7 @@ $(document).ready(function() {
     // CM_Network.cityMapDataParams.level = '1';
     CM_Network.loadCityMapData(function(res) {
       if (!res.data || res.data.length === 0) {
-        $('#search-breadcrumb').html('未找到数据');
+        $('#search-breadcrumb').html('未找到版块数据');
         CM_Map.removeAllMarkers();
       } else {
         if ( CM_Network.cityMapDataParams.level === '1' ) {
@@ -44,11 +44,11 @@ $(document).ready(function() {
         }
     
         $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length
-         +'</span>条数据');
+         +'</span>条版块数据');
        }
     }, function(err) {
       // alert(err);
-      $('#search-breadcrumb').html('<span style="color: red;">获取数据失败</span>');
+      $('#search-breadcrumb').html('<span style="color: red;">获取版块数据失败</span>');
     });
   }
   
@@ -83,10 +83,10 @@ $(document).ready(function() {
   CM_Network.cityMapDataParams.level = '1';
   CM_Network.loadCityMapData(function(res) {
     CM_Map.addCityListMarkers(res.data);
-    $('#search-breadcrumb').html('在“全国”下找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
+    $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
   }, function(err) {
     // alert(err);
-    $('#search-breadcrumb').html('<span style="color: red;">获取全国城市数据失败</span>');
+    $('#search-breadcrumb').html('<span style="color: red;">获取城市数据失败</span>');
   });
   
   ////////////////////////////// 加载高级搜索里面的基础数据开始 /////////////////////////////////
@@ -354,6 +354,10 @@ $(document).ready(function() {
     console.log(data);
     if (CM_Network.cityMapDataParams.level === '3') {
       //console.log('显示竞品');
+      // 显示指标数据
+      // showStatData();
+      
+      // 显示竞品数据
       showJPPanelData(data);
     }
     
