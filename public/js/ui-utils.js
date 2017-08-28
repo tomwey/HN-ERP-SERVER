@@ -67,7 +67,7 @@ window.CM_UIUtil = {
     var cityID = CM_Network.cityMapDataParams.cityID;
     // var dateType = CM_Network.cityMapDataParams.dateType;
     
-    var arr = ['销售面积㎡', '价格（元/㎡）', '供应面积㎡', '存量㎡'];
+    var arr = ['销售面积㎡', '供应面积㎡', '价格（元/㎡）', '存量㎡'];
     
     var loading = $('#loading-rank-' + dataType);
     loading.html('数据加载中...');
