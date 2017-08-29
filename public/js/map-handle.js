@@ -18,6 +18,10 @@ window.CM_Map = {
   },
   _handleZoomOrMove: function() {
     
+    // CM_UIUtil.hideStatPanel();
+    // CM_UIUtil.hideRankPanel();
+    // CM_UIUtil.hideJPPanel();
+    
     if (CM_Map.isLoading) return;
     
     // console.log('loading');
@@ -107,7 +111,7 @@ window.CM_Map = {
       $('#search-breadcrumb').html('拼命获取数据中...');
       
       CM_Network.loadCityMapData(function(res) {
-        // console.log(res.data);
+        console.log(res.data);
         CM_Map.isLoading = false;
         if (!res.data || res.data.length === 0) {
           CM_Map.map.remove(CM_Map.markers);
@@ -177,7 +181,10 @@ window.CM_Map = {
     for (var i=0; i<markerDataArr.length; i++) {
       var markerData = markerDataArr[i];
       
-      var tmpData = { level: 9, cityName: markerData.cityname };
+      var tmpData = markerData;
+      tmpData.level = 9;
+      tmpData.cityName = markerData.cityname;
+      //{ level: 9, cityName: markerData.cityname };
       
       var marker = new AMap.Marker({
         position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -190,6 +197,22 @@ window.CM_Map = {
                     '</div></div>',
         extData: tmpData,
       });
+      
+      marker.on('mouseover', function(e) {
+        var _marker = e.target;
+        _marker.setTop(true);
+        // console.log(_marker.getOffset());
+        // console.log('移入：' + _marker.getExtData());
+        // CM_UIUtil.showStatPanel();
+        // CM_UIUtil.showStatData2(_marker.getExtData());
+      });
+      marker.on('mouseout', function(e) {
+        var _marker = e.target;
+        _marker.setTop(false);
+        // CM_UIUtil.hideStatPanel();
+        // console.log('移出：' + _marker.getExtData());
+      });
+      
       marker.on('click', function(e) {
         var _marker = e.target;
         var _map = _marker.getMap();
@@ -318,6 +341,26 @@ window.CM_Map = {
       offset: new AMap.Pixel(-60, -60), //相对于基点的偏移位置
       content: this._createLargeMarkerContentFromData(title, dataArr),
       extData: tmpData,
+    });
+    
+    marker.on('mouseover', function(e) {
+      var _marker = e.target;
+      _marker.setTop(true);
+      // console.log(_marker.getExtData());
+      // 
+      // CM_UIUtil.showStatData2(_marker.getExtData());
+      // 
+      // if (CM_Network.cityMapDataParams.level === '3') {
+      //   CM_UIUtil.showJPData(_marker.getExtData());
+      // }
+    });
+    
+    marker.on('mouseout', function(e) {
+      var _marker = e.target;
+      _marker.setTop(false);
+      
+      // CM_UIUtil.hideStatPanel();
+      // CM_UIUtil.hideJPPanel();
     });
     
     marker.on('click', function(e) {

@@ -82,6 +82,8 @@ $(document).ready(function() {
   
   CM_Network.cityMapDataParams.level = '1';
   CM_Network.loadCityMapData(function(res) {
+    console.log(res.data);
+    
     CM_Map.addCityListMarkers(res.data);
     $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
   }, function(err) {
