@@ -32,23 +32,27 @@ $(document).ready(function() {
     // CM_Network.cityMapDataParams.level = '1';
     CM_Network.loadCityMapData(function(res) {
       if (!res.data || res.data.length === 0) {
-        $('#search-breadcrumb').html('未找到版块数据');
+        $('#search-breadcrumb').html('未找到数据');
         CM_Map.removeAllMarkers();
       } else {
+        var desc = '';
         if ( CM_Network.cityMapDataParams.level === '1' ) {
           CM_Map.addCityListMarkers(res.data);
+          desc = '城市';
         } else if ( CM_Network.cityMapDataParams.level === '2' ) {
           CM_Map.addCityDetailMarkers(res.data);
+          desc = '板块';
         } else if ( CM_Network.cityMapDataParams.level === '3' ) {
           CM_Map.addPlateMarkers(res.data);
+          desc = '板块';
         }
     
         $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length
-         +'</span>条版块数据');
+         +'</span>条'+ desc +'数据');
        }
     }, function(err) {
       // alert(err);
-      $('#search-breadcrumb').html('<span style="color: red;">获取版块数据失败</span>');
+      $('#search-breadcrumb').html('<span style="color: red;">获取数据失败</span>');
     });
   }
   
@@ -483,7 +487,7 @@ $(document).ready(function() {
     showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
     // minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
     // maxDate: +17,//最大日期，同上
-    defaultDate : +4, //默认日期，同上
+    //defaultDate : +4, //默认日期，同上
     duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
     firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
     nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
@@ -500,7 +504,7 @@ $(document).ready(function() {
     showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
     // minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
     // maxDate: +17,//最大日期，同上
-    defaultDate : +4, //默认日期，同上
+    //defaultDate : +4, //默认日期，同上
     duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
     firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
     nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
