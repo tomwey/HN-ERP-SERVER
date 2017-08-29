@@ -234,6 +234,8 @@ window.CM_Map = {
   addPlateMarkers: function(markerDataArr) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
+    console.log(markerDataArr);
+    
     this.map.remove(this.markers);
     
     this.markers = [];
