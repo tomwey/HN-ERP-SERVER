@@ -290,11 +290,11 @@ $(document).ready(function() {
       console.log(paramValues.join(','));
       
       if (text === '面积') {
-        CM_Network.cityMapDataParams.paramType = 1;
+        CM_Network.cityMapDataParams.paramType = '1';
       } else if (text === '单价') {
-        CM_Network.cityMapDataParams.paramType = 2;
+        CM_Network.cityMapDataParams.paramType = '2';
       } else if (text === '总价') {
-        CM_Network.cityMapDataParams.paramType = 3;
+        CM_Network.cityMapDataParams.paramType = '3';
       }
       
       CM_Network.cityMapDataParams.paramValues = paramValues.join(',');
