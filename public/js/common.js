@@ -434,7 +434,7 @@ $(document).ready(function() {
     $('#jp-panel #more-stat').html('');
     
     // 加载竞品均价数据
-    CM_Network.sendReq('城市地图排行数据APP', [data.plateid, '', ''], function(res) {
+    CM_Network.sendReq('城市地图排行数据APP', [data.plateid.toString(), '', ''], function(res) {
       // console.log(res);
       if (!res || !res.data || res.data.length === 0) {
         $('#avg-stat').html('暂无竞品均价数据');
@@ -451,7 +451,7 @@ $(document).ready(function() {
     });
     
     // 加载竞品数据
-    CM_Network.sendReq('城市地图竞品数据APP', [data.plateid,'',''], function(res) {
+    CM_Network.sendReq('城市地图竞品数据APP', [data.plateid.toString(),'',''], function(res) {
       // console.log(res.data);
       if (!res || !res.data || res.data.length === 0) {
         $('#jp-panel #jp-loading').html('暂无数据');
