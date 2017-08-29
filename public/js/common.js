@@ -31,6 +31,7 @@ $(document).ready(function() {
 
     // CM_Network.cityMapDataParams.level = '1';
     CM_Network.loadCityMapData(function(res) {
+      console.log(res.data);
       if (!res.data || res.data.length === 0) {
         $('#search-breadcrumb').html('未找到数据');
         CM_Map.removeAllMarkers();
@@ -285,7 +286,7 @@ $(document).ready(function() {
     
     if (paramValues.length > 0) {
       var text = $('#other-filter-item option:selected').text();
-      console.log(text);
+      // console.log(text);
       console.log(paramValues.join(','));
       
       if (text === '面积') {
@@ -361,7 +362,8 @@ $(document).ready(function() {
     if (CM_Network.cityMapDataParams.level === '3') {
       //console.log('显示竞品');
       // 显示指标数据
-      showPlateStatData(data);
+      // showPlateStatData(data);
+      CM_UIUtil.showStatData2(data);
       
       // 显示竞品数据
       showJPPanelData(data);

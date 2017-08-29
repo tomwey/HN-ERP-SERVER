@@ -255,7 +255,7 @@ window.CM_Map = {
         storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(1).toString() + '万㎡' : 
         storeNum.toFixed(0).toString() + '㎡';
       
-        var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '%';
+        var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '月';
       
         var saleCount = parseInt(markerData.dealsalecount);
         saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
@@ -401,7 +401,7 @@ window.CM_Map = {
       storeNum = storeNum >= 10000 ? (storeNum / 10000).toFixed(1).toString() + '万㎡' : 
       storeNum.toFixed(0).toString() + '㎡';
       
-      var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '%';
+      var cycle = parseFloat(markerData.cycle) <= 0.0 ? 0 : parseFloat(markerData.cycle).toFixed(0).toString() + '月';
       
       var saleCount = parseInt(markerData.dealsalecount);
       saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
@@ -425,7 +425,7 @@ window.CM_Map = {
         {label: '板块总数', value: markerData.platecount},
         {label: '当前存量', value: storeNum},
         {label: '去化周期', value: cycle},
-        {label: '成交均价', value: markerData.dealavgprice},
+        {label: '成交均价', value: parseFloat(markerData.dealavgprice).toFixed(0).toString() + '元'},
         {label: '成交套数', value: saleCount},
       ];
       CM_UIUtil.showStatData(this.cityName, arr);
