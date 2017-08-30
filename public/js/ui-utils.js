@@ -227,7 +227,7 @@ window.CM_UIUtil = {
         var html = '';
         for (var i = 0; i < res.data.length; i++) {
           var data = res.data[i];
-          html += '<span class="avgprice">'+ data.name +'：'+ CM_UIUtil.formatValue(data.avgprice, 0, null, '', '--') +'</span>&emsp;';
+          html += '<span class="avgprice">'+ data.name +'均价：'+ CM_UIUtil.formatValue(data.avgprice, 0, null, '', '--') +'</span>&emsp;&emsp;';
         }
         $('#avg-stat').html(html);
       }
