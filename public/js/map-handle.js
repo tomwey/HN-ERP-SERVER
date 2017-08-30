@@ -6,6 +6,7 @@ window.CM_Map = {
   cityName: '全国',
   isLoading: false,
   cityNames: [],
+  currentMarkerData: null,
   resetToOrigin: function() {
     this.map.setZoomAndCenter(this.originZoom, this.originCenter);
   },
@@ -234,73 +235,35 @@ window.CM_Map = {
   addPlateMarkers: function(markerDataArr) {
     if (!markerDataArr || markerDataArr.length === 0) return;
     
-    console.log(markerDataArr);
+    // console.log(markerDataArr);
     
     this.map.remove(this.markers);
-    
     this.markers = [];
+    
+    // 显示指标数据
+    
     for (var i=0; i<markerDataArr.length; i++) {
       var markerData = markerDataArr[i];
-      // console.log(markerData);
+      var marker = this._createLargeMarkerForData(markerData.platename, 12, markerData);
       
-      // console.log(markerData.dealmoney);
-      var dealMoney = markerData.dealmoney;
-      var dealNum   = markerData.dealnum;
-      var dealArea  = markerData.dealarea;
+      this.markers.push(marker);
+    } // done add markers
+  },
+  addCityDetailMarkers: function(markerDataArr) {
+    if (!markerDataArr || markerDataArr.length === 0) return;
+    
+    this.map.remove(this.markers);
+    this.markers = [];
+    
+    // 显示指标数据
+    var tmpData = markerDataArr[0];
+    tmpData.level = 9;
+    CM_UIUtil.showStatData2(tmpData);
+    
+    for (var i=0; i<markerDataArr.length; i++) {
+      var markerData = markerDataArr[0];
       
-      var dataArr;
-      if (dealMoney === 'NULL' && dealNum === 'NULL' && dealArea === 'NULL') {
-        // 显示当前存量，去化周期，年销量
-        var storeNum = CM_UIUtil.formatValue(markerData.storenum, 0, { value: 10000, suffix: '万' },'套','--');
-      
-        var cycle = CM_UIUtil.formatValue(markerData.cycle, 0, null,'月','--');
-
-        var saleCount = CM_UIUtil.formatValue(markerData.dealsalecount, 0, { value: 10000, suffix: '万' },'套','--');
-      
-        dataArr = [{
-            label: '当前存量',
-            value: storeNum,
-          },{
-            label: '去化周期',
-            value: cycle,
-          },{
-            label: '年销量',
-            value: saleCount,
-          },
-        ];
-      } else {
-        // 显示成交面积，成交套数，成交金额
-        var v1,v2,v3;
-        
-        var dealMoney = markerData.dealmoney;
-        if (!dealMoney || dealMoney === 'NULL' || dealMoney === '') {
-          v1 = '--';
-        } else {
-          v1 = parseFloat(dealMoney);
-          
-          if (v1 >= 100000000) {
-            v1 = (v1 / 100000000).toFixed(1).toString() + '亿';
-          } else {
-            v1 = (v1 / 10000).toFixed(1).toString() + '万';
-          }
-        }
-        
-        v2 = CM_UIUtil.formatValue(markerData.dealnum, 0, { value: 10000, suffix: '万' },'套','--');
-        v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 100000, suffix: '万' },'㎡','--');
-        
-        dataArr = [{
-                  label: '成交金额',
-                  value: v1,
-                },{
-                  label: '成交套数',
-                  value: v2,
-                },{
-                  label: '成交面积',
-                  value: v3,
-                },];
-      }
-            
-      var marker = this._createLargeMarkerForData(markerData.platename, dataArr, 12, markerData);
+      var marker = this._createLargeMarkerForData(markerData.cityname, 12, markerData);
       
       this.markers.push(marker);
     } // done add markers
@@ -310,15 +273,71 @@ window.CM_Map = {
     html = '<div class="marker-container large-marker"><div class="marker-content"><p class="title">'+ title +'</p><table class="table">';
     for (var i = 0; i < dataArr.length; i++) {
       var item = dataArr[i];
-      html += '<tr><td class="label" width="50%"><p>' + item.label + ':</p></td><td class="value" width="50%">'+ item.value +'</td></tr>';
+      html += '<tr><td class="label" width="45%"><p>' + item.label + ':</p></td><td class="value" width="55%">'+ item.value +'</td></tr>';
     }
     html += '</table></div></div>';
     return html;
   },
-  _createLargeMarkerForData: function(title, dataArr, level, markerData) {
+  _createLargeMarkerForData: function(title, level, markerData) {
     var tmpData = markerData;//{ level: level, cityName: markerData.cityname, plateid: markerData.plateid, platename: markerData.platename };
     tmpData.level = level;
     tmpData.cityName = markerData.cityname;
+    
+    var dealMoney = markerData.dealmoney;
+    var dealNum   = markerData.dealnum;
+    var dealArea  = markerData.dealarea;
+    
+    var dataArr;
+    if (dealMoney === 'NULL' && dealNum === 'NULL' && dealArea === 'NULL') {
+      // 显示当前存量，去化周期，年销量
+      var storeNum = CM_UIUtil.formatValue(markerData.storenum, 0, { value: 10000, suffix: '万' },'套','--');
+    
+      var cycle = CM_UIUtil.formatValue(markerData.cycle, 0, null,'月','--');
+
+      var saleCount = CM_UIUtil.formatValue(markerData.dealsalecount, 0, { value: 10000, suffix: '万' },'套','--');
+    
+      dataArr = [{
+          label: '当前存量',
+          value: storeNum,
+        },{
+          label: '去化周期',
+          value: cycle,
+        },{
+          label: '年销量',
+          value: saleCount,
+        },
+      ];
+    } else {
+      // 显示成交面积，成交套数，成交金额
+      var v1,v2,v3;
+      
+      var dealMoney = markerData.dealmoney;
+      if (!dealMoney || dealMoney === 'NULL' || dealMoney === '') {
+        v1 = '--';
+      } else {
+        v1 = parseFloat(dealMoney);
+        
+        if (v1 >= 100000000) {
+          v1 = (v1 / 100000000).toFixed(1).toString() + '亿';
+        } else {
+          v1 = (v1 / 10000).toFixed(1).toString() + '万';
+        }
+      }
+      
+      v2 = CM_UIUtil.formatValue(markerData.dealnum, 0, { value: 10000, suffix: '万' },'套','--');
+      v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 100000, suffix: '万' },'㎡','--');
+      
+      dataArr = [{
+                label: '成交金额',
+                value: v1,
+              },{
+                label: '成交套数',
+                value: v2,
+              },{
+                label: '成交面积',
+                value: v3,
+              },];
+    }
     
     var marker = new AMap.Marker({
       position: [markerData.longitude, markerData.latitude],//marker所在的位置
@@ -355,6 +374,7 @@ window.CM_Map = {
       var level = _map.getZoom();
       
       CM_Map.cityName = _marker.getExtData().cityName;
+      // CM_Map.currentMarkerData = _marker.getExtData();
       
       if (level < newLevel) {
         _map.setZoomAndCenter(newLevel, _marker.getPosition());
@@ -368,54 +388,6 @@ window.CM_Map = {
       
     });
     return marker;
-  },
-  addCityDetailMarkers: function(markerDataArr) {
-    if (!markerDataArr || markerDataArr.length === 0) return;
-    
-    this.map.remove(this.markers);
-    this.markers = [];
-    
-    // for (var i=0; i<markerDataArr.length; i++) {
-      var markerData = markerDataArr[0];
-
-      var storeNum = CM_UIUtil.formatValue(markerData.storenum, 1, { value: 10000, suffix: '万' },'套','--');
-      
-      var cycle = CM_UIUtil.formatValue(markerData.cycle, 0, null,'月','--');
-
-      var saleCount = CM_UIUtil.formatValue(markerData.dealsalecount, 0, { value: 10000, suffix: '万' },'套','--');
-      
-      var dataArr = [{
-          label: '当前存量',
-          value: storeNum,
-        },{
-          label: '去化周期',
-          value: cycle,
-        },{
-          label: '年销量',
-          value: saleCount,
-        },
-      ];
-      
-      // 显示指标数据
-      CM_UIUtil.showStatPanel();
-      var arr = [
-        {label: '板块总数', value: CM_UIUtil.formatValue(markerData.platecount, 0, null,'','--')},
-        {label: '当前存量', value: storeNum},
-        {label: '去化周期', value: cycle},
-        {label: '成交均价', value: CM_UIUtil.formatValue(markerData.dealavgprice, 0, null,'元','--')},
-        {label: '成交套数', value: saleCount},
-      ];
-      CM_UIUtil.showStatData(this.cityName, arr);
-      // 设置指标数据
-      
-      // var dealsalecount = parseInt(markerData.dealsalecount);
-      // saleCount = saleCount >= 10000 ? (saleCount / 10000).toFixed(0).toString() + '万套' : 
-      // saleCount.toString() + '套';
-      
-      var marker = this._createLargeMarkerForData(markerData.cityname, dataArr, 12, markerData);
-      
-      this.markers.push(marker);
-    // } // done add markers
   },
 };
            
