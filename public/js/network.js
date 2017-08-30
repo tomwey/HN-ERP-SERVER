@@ -5,7 +5,7 @@ window.CM_Network = {
     plateName: '',
     paramType: '-1',
     paramValues: '',
-    dateType: '394',
+    dateType: '0',
     bDate: '',
     eDate: '',
     level: '1',

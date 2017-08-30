@@ -198,7 +198,7 @@ $(document).ready(function() {
   // 清除搜索
   $('#clear-search').click(function() {
     // console.log('d-');
-    CM_Network.cityMapDataParams.dateType = '394';
+    CM_Network.cityMapDataParams.dateType = '0';
     CM_Network.cityMapDataParams.bDate = '';
     CM_Network.cityMapDataParams.eDate = '';
     
