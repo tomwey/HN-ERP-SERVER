@@ -218,7 +218,8 @@ window.CM_UIUtil = {
     $('#jp-panel #more-stat').html('');
     
     // 加载竞品均价数据
-    CM_Network.sendReq('城市地图排行数据APP', [data.plateid.toString(), '', ''], function(res) {
+    CM_Network.sendReq('城市地图竞品均价数据APP', [data.plateid.toString(), '', ''], function(res) {
+      // console.log('---------');
       // console.log(res);
       if (!res || !res.data || res.data.length === 0) {
         $('#avg-stat').html('暂无竞品均价数据');
@@ -226,7 +227,7 @@ window.CM_UIUtil = {
         var html = '';
         for (var i = 0; i < res.data.length; i++) {
           var data = res.data[i];
-          html += '<span class="avgprice">'+ data.name +'：'+ data.avgprice +'</span>&emsp;';
+          html += '<span class="avgprice">'+ data.name +'：'+ CM_UIUtil.formatValue(data.avgprice, 0, null, '', '--') +'</span>&emsp;';
         }
         $('#avg-stat').html(html);
       }
