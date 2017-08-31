@@ -290,11 +290,11 @@ window.CM_Map = {
     var dataArr;
     if (dealMoney === 'NULL' && dealNum === 'NULL' && dealArea === 'NULL') {
       // 显示当前存量，去化周期，年销量
-      var storeNum = CM_UIUtil.formatValue(markerData.storenum, 0, { value: 10000, suffix: '万' },'套','--');
+      var storeNum = CM_UIUtil.formatValue(markerData.storenum, 1, { value: 10000, suffix: '万' },'套','--');
     
       var cycle = CM_UIUtil.formatValue(markerData.cycle, 0, null,'月','--');
 
-      var saleCount = CM_UIUtil.formatValue(markerData.dealsalecount, 0, { value: 10000, suffix: '万' },'套','--');
+      var saleCount = CM_UIUtil.formatValue(markerData.dealsalecount, 1, { value: 10000, suffix: '万' },'套','--');
     
       dataArr = [{
           label: '当前存量',
@@ -324,7 +324,7 @@ window.CM_Map = {
         }
       }
       
-      v2 = CM_UIUtil.formatValue(markerData.dealnum, 0, { value: 10000, suffix: '万' },'套','--');
+      v2 = CM_UIUtil.formatValue(markerData.dealnum, 1, { value: 10000, suffix: '万' },'套','--');
       v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 100000, suffix: '万' },'㎡','--');
       
       dataArr = [{
