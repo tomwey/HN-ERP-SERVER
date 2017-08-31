@@ -67,21 +67,22 @@ window.CM_UIUtil = {
     $("#stat-panel .table").html(html);
   },
   
-  formatValue: function(value, scale = 1, boundary = { value: 10000, suffix: '万' }, unit = '', defaultVale = '') {
-    if (!value || value === '' || value === 'NULL') return defaultVale;
+  formatValue: function(aVal, factor, boundary, unit, defaultVale) 
+  {
+    if (!aVal || aVal === '' || aVal === 'NULL') return defaultVale;
     
-    var newValue = parseFloat(value);
+    var newValue = parseFloat(aVal);
     if (newValue === 0.0) return 0.0;
     
     if (newValue < 10000) {
       newValue = newValue.toFixed(0);
     } else {
-      newValue = newValue.toFixed(scale);
+      newValue = newValue.toFixed(factor);
     }
     
     if (boundary && boundary.value) {
       return newValue >= boundary.value ? 
-        ( (newValue / boundary.value).toFixed(scale).toString() + boundary.suffix + unit ): 
+        ( (newValue / boundary.value).toFixed(factor).toString() + boundary.suffix + unit ): 
         newValue.toString() + unit;
     } else {
       return newValue.toString() + unit;
@@ -291,9 +292,9 @@ window.CM_UIUtil = {
     
     for (var i = 0; i < types.length; i++) {
       _this.loadRankData(types[i], function (res) {
-        console.log(res);
+        // console.log(res);
       }, function (err) {
-        console.log(err);
+        // console.log(err);
       });
     }
   }
