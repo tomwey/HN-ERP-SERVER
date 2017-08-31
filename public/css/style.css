@@ -180,6 +180,30 @@ body, html {
   cursor: pointer;
 }
 
+.condition {
+  border: 1px solid rgb(231,90,22);
+  font-size: 12px;
+/*  display: inline-block;*/
+  padding: 3px 0;
+/*  margin-right: 3px;*/
+  margin-left: 3px;
+}
+
+.other-conditions {
+  margin-left: 5px;
+}
+
+.condition .bc-label {
+  background-color: rgb(231,90,22);
+  color: white;
+  padding: 3px 5px;
+}
+
+.condition .bc-value {
+  padding-left: 6px;
+  padding-right: 3px;
+}
+
 /* 标记样式 */
 .marker-container {
     

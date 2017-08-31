@@ -110,7 +110,7 @@ $(document).ready(function() {
     
     for (var i = 0; i < items.length; i++) {
       var item = items[i];
-      html += '<label class="radio-inline"><input type="radio" name="date_item" id="date_item" value="'+ item.dic_value +'">'+ item.dic_name +'</label>';
+      html += '<label class="radio-inline"><input type="radio" name="date_item" data-name="'+ item.dic_name +'"  id="date_item" value="'+ item.dic_value +'" '+ (item.dic_value.toString() === CM_Network.cityMapDataParams.dateType ? 'checked' : '') +'>'+ item.dic_name +'</label>';
     }
     $('#filter-time-items').html(html);
   }, function(err) {
@@ -215,13 +215,21 @@ $(document).ready(function() {
     $('#other-filter-start').val('');
     $('#other-filter-end').val('');
     
-    $('input:radio:checked').prop('checked', false);
+    // $('input:radio:checked').prop('checked', false);
+    // 重置搜索条件显示
+    $('#search-conditions #time-value').html('本月');
+    var firstEl = $('.filter-items input[type="radio"]')[0];
+    $(firstEl).prop('checked', true);
+    
+    $('#search-conditions #other-conditions').html('');
+    
     $('.filter-items input[type="checkbox"]').each(function() {
       $(this).prop('checked', false);
     });
     
     $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
     
+    // 开始搜索
     startSearch();
   });
   
@@ -243,9 +251,14 @@ $(document).ready(function() {
           alert('开始日期不能大于结束日期');
           return;
         };
+        
+        $('#search-conditions #time-value').html($('#date-start').val() + ' - ' + $('#date-end').val());
+        
       } else {
         CM_Network.cityMapDataParams.bDate = '';
         CM_Network.cityMapDataParams.eDate = '';
+        
+        $('#search-conditions #time-value').html($('input:radio:checked').data('name'));
       }
     }
     
@@ -287,17 +300,45 @@ $(document).ready(function() {
     if (paramValues.length > 0) {
       var text = $('#other-filter-item option:selected').text();
       // console.log(text);
-      console.log(paramValues.join(','));
-      
+      var unit = '';
       if (text === '面积') {
         CM_Network.cityMapDataParams.paramType = '1';
+        unit = '㎡';
       } else if (text === '单价') {
         CM_Network.cityMapDataParams.paramType = '2';
+        unit = '元';
       } else if (text === '总价') {
         CM_Network.cityMapDataParams.paramType = '3';
+        unit = '万元';
       }
       
       CM_Network.cityMapDataParams.paramValues = paramValues.join(',');
+      
+      // 合并搜索条件
+      var tmpArray = [];
+      for (var i = 0; i < paramValues.length; i++) {
+        var value = paramValues[i];
+        
+        var arr = value.split('-');
+        var first = parseInt(arr[0]);
+        var last  = parseInt(arr[1]);
+        
+        var tmpStr;
+        if (first === 0 && last > 0) {
+          tmpStr = last.toString() + unit + '以下';
+        } else if ( first > 0 && last === 0 ) {
+          tmpStr = first.toString() + unit + '以上';
+        } else {
+          tmpStr = first.toString() + '-' + last.toString() + unit;
+        }
+        
+        tmpArray.push(tmpStr);
+      }
+      
+      $('#search-conditions #other-conditions').html('<span class="condition"><span class="bc-label">'+ text +'</span><span class="bc-value" id="time-value">'+ tmpArray.join(',') +'</span></span>');
+      
+    } else {
+      $('#search-conditions #other-conditions').html('');
     }
     
     if (value || paramValues.length > 0) {

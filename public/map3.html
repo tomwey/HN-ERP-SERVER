@@ -22,7 +22,7 @@
     
     <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?3">
     <link rel="stylesheet" href="css/search.css">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -197,7 +197,20 @@
         </div>
       </div>
       
-      <div class="search-breadcrumb" id="search-breadcrumb"><!-- a class="bread">全国</a> > <a class="bread">时间：近三月</a --></div>
+      <div class="search-breadcrumb">
+        <span id="search-conditions">
+          已选条件: 
+          <span class="conditions" id="conditions">
+            <span class="condition">
+              <span class="bc-label">时间</span><span class="bc-value" id="time-value">本月</span>
+            </span>
+            <span id="other-conditions" class="other-conditions">
+              
+            </span>
+          </span>
+        </span>&emsp;
+        <span id="search-breadcrumb"></span>
+      </div>
       
       <div class="advanced-search-bar" id="advanced-search-bar">
         <table class="table table-bordered">
@@ -268,11 +281,11 @@
       <script src="https://cdn.bootcss.com/bootstrap-select/1.12.4/js/i18n/defaults-zh_CN.min.js"></script>
 
       <!-- Include all compiled plugins (below), or include individual files as needed -->
-      <script src="js/network.js"></script>
-      <script src="js/ui-utils.js"></script>
-      <script src="js/map-handle.js"></script>
+      <script src="js/network.js?1"></script>
+      <script src="js/ui-utils.js?1"></script>
+      <script src="js/map-handle.js?1"></script>
       
-      <script src="js/common.js"></script>
+      <script src="js/common.js?1"></script>
       
   </body>
 </html>
