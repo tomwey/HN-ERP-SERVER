@@ -69,7 +69,7 @@ window.CM_UIUtil = {
   
   formatValue: function(aVal, factor, boundary, unit, defaultVale) 
   {
-    if (!aVal || aVal === '' || aVal === 'NULL') return defaultVale;
+    if (!aVal || aVal === '' || aVal === 'NULL') return defaultVale + '&emsp;&emsp;';
     
     var newValue = parseFloat(aVal);
     if (newValue === 0.0) return 0.0;
@@ -81,9 +81,21 @@ window.CM_UIUtil = {
     }
     
     if (boundary && boundary.value) {
-      return newValue >= boundary.value ? 
-        ( (newValue / boundary.value).toFixed(factor).toString() + boundary.suffix + unit ): 
-        newValue.toString() + unit;
+      
+      if (newValue >= boundary.value) {
+        var tmp = newValue / boundary.value;
+        if (tmp >= 1000) {
+          return tmp.toFixed(0).toString() + boundary.suffix + unit;
+        } else {
+          return tmp.toFixed(factor).toString() + boundary.suffix + unit;
+        }
+      } else {
+        return newValue.toString() + unit;
+      }
+      
+      // return newValue >= boundary.value ? 
+      //   ( (newValue / boundary.value).toFixed(factor).toString() + boundary.suffix + unit ): 
+      //   newValue.toString() + unit;
     } else {
       return newValue.toString() + unit;
     }
