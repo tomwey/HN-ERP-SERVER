@@ -273,7 +273,7 @@ window.CM_Map = {
     html = '<div class="marker-container large-marker"><div class="marker-content"><p class="title">'+ title +'</p><table class="table">';
     for (var i = 0; i < dataArr.length; i++) {
       var item = dataArr[i];
-      html += '<tr><td class="label" width="45%"><p>' + item.label + ':</p></td><td class="value" width="55%">'+ item.value +'</td></tr>';
+      html += '<tr><td class="label"><p>' + item.label + ':</p></td><td class="value">'+ item.value +'</td></tr>';
     }
     html += '</table></div></div>';
     return html;

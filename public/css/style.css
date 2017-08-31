@@ -233,6 +233,7 @@ body, html {
 
 .large-marker .marker-content .table td.label {
   text-align: right;
+  max-width: 50%;
 /*  width: 20%;*/
 /*  background-color: green;*/
 }

@@ -257,7 +257,7 @@ window.CM_UIUtil = {
         for (var i = 0; i < data.length; i++) {
           var item = data[i];
           var name = isCity ? item.cityname : item.platename;
-          html += '<tr><td>'+ (i+1).toString() +'</td><td>'+ name +'</td><td>'+ item.value +'</td></tr>';
+          html += '<tr><td>'+ (i+1).toString() +'</td><td>'+ name +'</td><td>'+ CM_UIUtil.formatValue(item.value, 1, null, '', '--') +'</td></tr>';
         }
       }
       
