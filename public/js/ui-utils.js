@@ -189,10 +189,10 @@ window.CM_UIUtil = {
       if (!res || !res.data || res.data.length === 0) {
         $('#avg-stat').html('暂无竞品均价数据');
       } else {
-        var html = '';
+        var html = '<h4>当前销售价格:</h4>';
         for (var i = 0; i < res.data.length; i++) {
           var data = res.data[i];
-          html += '<span class="avgprice">'+ data.name +'均价：'+ CM_UIUtil.formatValue(data.avgprice, 0, null, '', '--') +'</span>&emsp;&emsp;';
+          html += '<span class="avgprice">'+ data.name +'均价：'+ CM_UIUtil.formatValue(data.avgprice, 0, null, '', '--') +'</span>&emsp;';
         }
         $('#avg-stat').html(html);
       }
@@ -215,7 +215,7 @@ window.CM_UIUtil = {
       } else {
         $('#jp-panel #jp-loading').hide();
         
-        var html = '<table class="table table-bordered"><tr><th>产品类型</th><th>面积段</th><th>成交套数</th><th>套数占比</th><th>月均成交套数</th></tr>';
+        var html = '<table class="table table-bordered"><tr><th>产品类型</th><th>面积段</th><th>成交套数</th><th>套数占比</th><th width="25%">近半年月均成交套数</th></tr>';
         for (var i = 0; i < res.data.length; i++) {
           var data = res.data[i];
           var prodType = data.name;

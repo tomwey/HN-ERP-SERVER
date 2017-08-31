@@ -303,7 +303,7 @@ window.CM_Map = {
           label: '去化周期',
           value: cycle,
         },{
-          label: '年销量',
+          label: '成交套数',
           value: saleCount,
         },
       ];

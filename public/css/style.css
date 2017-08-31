@@ -119,8 +119,13 @@ body, html {
 /*  margin-top: -200px;*/
 }
 
+.jp-panel .table {
+  margin-bottom: 5px;
+}
+
 .jp-panel .table th, .jp-panel .table td {
   text-align: center;
+  vertical-align: middle;
 }
 
 .jp-panel .panel-heading {
@@ -129,7 +134,7 @@ body, html {
 
 .jp-panel .panel .panel-body {
 /*  height: 100%;*/
-  height: 360px;
+  height: 398px;
   overflow: auto;
 }
 
@@ -142,10 +147,17 @@ body, html {
   margin-bottom: 10px;
 /*  font-weight: bold;*/
   font-size: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(242,241,241);
+}
+
+.jp-panel .avg-stat h4 {
+  font-size: 16px;
 }
 
 .jp-panel .avg-stat .gc-avgprice {
   padding-left: 30px;
+  font-size: 14px;
 }
 
 .fab-button {
