@@ -114,7 +114,7 @@ window.CM_UIUtil = {
       statArr = [
         {label: '当前存量', value: storeNum},
         {label: '去化周期', value: cycle},
-        {label: '成交均价', value: CM_UIUtil.formatValue(markerData.dealavgprice, 1, null,'元','--')},
+        {label: '成交均价', value: CM_UIUtil.formatValue(markerData.dealavgprice, 0, null,'元','--')},
         {label: '成交套数', value: saleCount},
       ];
       
