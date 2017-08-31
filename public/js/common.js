@@ -264,7 +264,7 @@ $(document).ready(function() {
     
     // 准备其他指标数据
     var paramValues = [];
-    $("input[type=checkbox]:checked").each(function() {
+    $("#advanced-search-bar input[type=checkbox]:checked").each(function() {
       // console.log( $(this).val() );
       var value = $(this).val();
       if (value === '-1') {

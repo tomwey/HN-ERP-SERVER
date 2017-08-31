@@ -298,7 +298,7 @@ window.CM_UIUtil = {
       rankTitle.html('城市近半年TOP5排名');
       $('#rank-panel .th-content').text('城市');
     } else {
-      rankTitle.html(cityID + '板块TOP5排名');
+      rankTitle.html(cityID + '板块近半年TOP5排名');
       $('#rank-panel .th-content').text('板块');
     }
     
