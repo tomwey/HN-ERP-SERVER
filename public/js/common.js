@@ -353,6 +353,11 @@ $(document).ready(function() {
   
   // 城市切换
   $('#city').change(function() {
+    
+    CM_UIUtil.hideStatPanel();
+    CM_UIUtil.hideJPPanel();
+    CM_UIUtil.hideRankPanel();
+    
     // console.log('123');
     var text = $('#city option:selected').text();
     // console.log(text);
