@@ -50,7 +50,7 @@ window.CM_Map = {
         
         var city = this._formatCityName(this.cityName);
         
-        console.log(city);
+        // console.log(city);
         
         CM_Network.cityMapDataParams.cityID = city;
         
@@ -68,7 +68,7 @@ window.CM_Map = {
         $('#search-breadcrumb').html('拼命获取数据中...');
         
         CM_Network.loadCityMapData(function(res) {
-          console.log(res.data);
+          // console.log(res.data);
           CM_Map.isLoading = false;
           if (!res.data || res.data.length === 0) {
             CM_Map.map.remove(CM_Map.markers);
@@ -112,7 +112,7 @@ window.CM_Map = {
       $('#search-breadcrumb').html('拼命获取数据中...');
       
       CM_Network.loadCityMapData(function(res) {
-        console.log(res.data);
+        // console.log(res.data);
         CM_Map.isLoading = false;
         if (!res.data || res.data.length === 0) {
           CM_Map.map.remove(CM_Map.markers);

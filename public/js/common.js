@@ -31,7 +31,7 @@ $(document).ready(function() {
 
     // CM_Network.cityMapDataParams.level = '1';
     CM_Network.loadCityMapData(function(res) {
-      console.log(res.data);
+      // console.log(res.data);
       if (!res.data || res.data.length === 0) {
         $('#search-breadcrumb').html('未找到数据');
         CM_Map.removeAllMarkers();
@@ -87,7 +87,7 @@ $(document).ready(function() {
   
   CM_Network.cityMapDataParams.level = '1';
   CM_Network.loadCityMapData(function(res) {
-    console.log(res.data);
+    // console.log(res.data);
     
     CM_Map.addCityListMarkers(res.data);
     $('#search-breadcrumb').html('共找到<span class="search-results-count">'+ res.data.length +'</span>条城市数据');
@@ -100,7 +100,6 @@ $(document).ready(function() {
   // 加载时间条件
   $('#filter-time-items').html('加载数据中...');
   CM_Network.sendReq('公共字典APP', ['城市地图前端日期段'], function(res) {
-    console.log(res);
     html = ''
     var items = res.data;
     if (!items || items.length === 0) {
@@ -120,7 +119,7 @@ $(document).ready(function() {
   
   function selectTimeItem(el) {
     var $this = $(el);
-    console.log($this.data('value'));
+    // console.log($this.data('value'));
   }
   
   // 加载面积，单价，总价
@@ -399,7 +398,7 @@ $(document).ready(function() {
     
   // 监听marker点击事件
   $(document).on('marker:click', function(event, data) {
-    console.log(data);
+    // console.log(data);
     if (CM_Network.cityMapDataParams.level === '3') {
       //console.log('显示竞品');
       // 显示指标数据
