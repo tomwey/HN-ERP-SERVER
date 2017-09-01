@@ -79,14 +79,14 @@ window.CM_Map = {
               $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条板块数据');
               CM_Map.addPlateMarkers(res.data);
             } else {
-              $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条数据');
+              $('#search-breadcrumb').html('共找到<span class="search-results-count">'+ res.data.length +'</span>条数据');
               CM_Map.addCityDetailMarkers(res.data);
             }
           }
         }, function(err) {
           CM_Map.isLoading = false;
           CM_Map.map.remove(CM_Map.markers);
-          $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
+          $('#search-breadcrumb').html('<span class="search-results-count">获取数据失败！</span>');
         });
       // });
     } else {
@@ -124,12 +124,12 @@ window.CM_Map = {
           
           $('#city').selectpicker('val', '-1');
           
-          $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
+          $('#search-breadcrumb').html('共找到<span class="search-results-count">'+ res.data.length +'</span>条城市数据');
         }
       }, function(err) {
         CM_Map.isLoading = false;
         
-        $('#search-breadcrumb').html('<span style="color:red;">获取数据失败！</span>');
+        $('#search-breadcrumb').html('<span class="search-results-count">获取数据失败！</span>');
       });
     }
     
@@ -325,7 +325,7 @@ window.CM_Map = {
       }
       
       v2 = CM_UIUtil.formatValue(markerData.dealnum, 1, { value: 10000, suffix: '万' },'套','--');
-      v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 100000, suffix: '万' },'㎡','--');
+      v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 10000, suffix: '万' },'㎡','--');
       
       dataArr = [{
                 label: '成交金额',

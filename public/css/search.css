@@ -154,6 +154,11 @@ a.filter-btn i {
 /*  background-color: red;*/
 }
 
+.search-results-count {
+  color: rgb(231,90,22);
+  padding: 0 5px;
+}
+
 .search-breadcrumb {
   margin-top: 5px;
 }

@@ -151,7 +151,7 @@ window.CM_UIUtil = {
       }
       
       v2 = CM_UIUtil.formatValue(markerData.dealnum, 1, { value: 10000, suffix: '万' },'套','--');
-      v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 100000, suffix: '万' },'㎡','--');
+      v3 = CM_UIUtil.formatValue(markerData.dealarea, 1, { value: 10000, suffix: '万' },'㎡','--');
       
       statArr = [{
                 label: '成交金额',

@@ -48,7 +48,7 @@ $(document).ready(function() {
           desc = '板块';
         }
     
-        $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length
+        $('#search-breadcrumb').html('共找到<span class="search-results-count">'+ res.data.length
          +'</span>条'+ desc +'数据');
        }
     }, function(err) {
@@ -90,7 +90,7 @@ $(document).ready(function() {
     console.log(res.data);
     
     CM_Map.addCityListMarkers(res.data);
-    $('#search-breadcrumb').html('共找到<span style="color: red;padding: 0 5px;">'+ res.data.length +'</span>条城市数据');
+    $('#search-breadcrumb').html('共找到<span class="search-results-count">'+ res.data.length +'</span>条城市数据');
   }, function(err) {
     // alert(err);
     $('#search-breadcrumb').html('<span style="color: red;">获取城市数据失败</span>');
@@ -115,7 +115,7 @@ $(document).ready(function() {
     $('#filter-time-items').html(html);
   }, function(err) {
     // console.log(err);
-    $('#filter-time-items').html('<span style="color:red;">获取数据出错</span>');
+    $('#filter-time-items').html('<span class="search-results-count">获取数据失败</span>');
   });
   
   function selectTimeItem(el) {
@@ -167,7 +167,7 @@ $(document).ready(function() {
       
     }, function(err) {
       // console.log(err);
-      $('#other-filter-items').html('<span style="color:red;">获取数据出错</span>');
+      $('#other-filter-items').html('<span class="search-results-count">获取数据失败</span>');
       
       $('#other-filter-item').prop('disabled', false);
     });
