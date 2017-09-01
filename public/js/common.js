@@ -26,6 +26,9 @@ $(document).ready(function() {
     $('#advanced-search-bar').hide();
     $('#filter-btn i').attr('class', 'glyphicon glyphicon-triangle-bottom');
     
+    CM_UIUtil.hideStatPanel();
+    CM_UIUtil.hideJPPanel();
+    
     // 加载城市地图数据
     $('#search-breadcrumb').html('拼命获取数据中...');
 

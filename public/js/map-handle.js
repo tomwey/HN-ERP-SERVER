@@ -68,7 +68,7 @@ window.CM_Map = {
         $('#search-breadcrumb').html('拼命获取数据中...');
         
         CM_Network.loadCityMapData(function(res) {
-          // console.log(res.data);
+          console.log(res.data);
           CM_Map.isLoading = false;
           if (!res.data || res.data.length === 0) {
             CM_Map.map.remove(CM_Map.markers);
@@ -254,6 +254,8 @@ window.CM_Map = {
     
     this.map.remove(this.markers);
     this.markers = [];
+    
+    console.log(markerDataArr);
     
     // 显示指标数据
     var tmpData = markerDataArr[0];
