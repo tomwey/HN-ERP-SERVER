@@ -240,6 +240,12 @@ window.CM_Map = {
     this.map.remove(this.markers);
     this.markers = [];
     
+    if (markerDataArr.length === 1) {
+      var pos = [markerDataArr[0].longitude, markerDataArr[0].latitude];
+      // console.log(pos);
+      this.map.setCenter(pos);
+    }
+    
     // 显示指标数据
     
     for (var i=0; i<markerDataArr.length; i++) {
