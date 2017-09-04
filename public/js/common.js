@@ -45,7 +45,7 @@ $(document).ready(function() {
           desc = '城市';
         } else if ( CM_Network.cityMapDataParams.level === '2' ) {
           CM_Map.addCityDetailMarkers(res.data);
-          desc = '板块';
+          desc = '';
         } else if ( CM_Network.cityMapDataParams.level === '3' ) {
           CM_Map.addPlateMarkers(res.data);
           desc = '板块';
@@ -362,12 +362,18 @@ $(document).ready(function() {
     var text = $('#city option:selected').text();
     // console.log(text);
     CM_Map.cityName = text;
+    
+    // 清空搜索关键字
+    $('#plate-keyword').val('');
+    CM_Network.cityMapDataParams.plateName = '';
+    
     if (text === '全国') {
       // CM_Map.map.setCity(null);
       CM_Map.resetToOrigin();
     } else {
       CM_Map.map.setCity(text);
     }
+    
   });
   
   // 打开搜索条
@@ -390,6 +396,18 @@ $(document).ready(function() {
     // console.log($('#city').val());
     
     if ($('#plate-keyword').val() && $('#plate-keyword').val().length > 0) {
+      console.log(CM_Network.cityMapDataParams.cityID);
+      
+      var cityID = CM_Network.cityMapDataParams.cityID.toString();
+      if (cityID === '-1') {
+        // 在全国范围内搜索
+        CM_Network.cityMapDataParams.level = '1';
+        CM_Map.resetToOrigin();
+      } else {
+        CM_Network.cityMapDataParams.level = '3';
+        CM_Map.map.setZoom(12);
+      }
+      
       CM_Network.cityMapDataParams.plateName = $('#plate-keyword').val();
       CM_Network.cityMapDataParams.cityID    = $('#city').val(); 
 
@@ -431,6 +449,8 @@ $(document).ready(function() {
     firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
     nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
     prevText : '上一月',//设置“上个月”链接的显示文字。
+    changeMonth: true,
+    changeYear: true,
     showButtonPanel: true,//是否显示按钮面板 
     currentText : '今天',//设置当天按钮的文本内容，此按钮需要通过showButtonPanel参数的设置才显示。
     gotoCurrent : false,//如果设置为true，则点击当天按钮时，将移至当前已选中的日期，而不是今天。
@@ -448,6 +468,8 @@ $(document).ready(function() {
     firstDay : 1 ,//设置一周中的第一天。默认星期天0，星期一为1，以此类推。
     nextText : '下一月',//设置“下个月”链接的显示文字。鼠标放上去的时候
     prevText : '上一月',//设置“上个月”链接的显示文字。
+    changeMonth: true,
+    changeYear: true,
     showButtonPanel: true,//是否显示按钮面板 
     currentText : '今天',//设置当天按钮的文本内容，此按钮需要通过showButtonPanel参数的设置才显示。
     gotoCurrent : false,//如果设置为true，则点击当天按钮时，将移至当前已选中的日期，而不是今天。

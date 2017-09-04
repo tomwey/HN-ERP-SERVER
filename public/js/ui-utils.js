@@ -244,7 +244,7 @@ window.CM_UIUtil = {
     var cityID = CM_Network.cityMapDataParams.cityID;
     // var dateType = CM_Network.cityMapDataParams.dateType;
     
-    var arr = ['销售面积㎡', '供应面积㎡', '价格（元/㎡）', '存量㎡'];
+    var arr = ['销售面积㎡', '供应面积㎡', '价格（元/㎡）', '存量（套）'];
     
     var loading = $('#loading-rank-' + dataType);
     loading.html('数据加载中...');
@@ -270,7 +270,7 @@ window.CM_UIUtil = {
         for (var i = 0; i < data.length; i++) {
           var item = data[i];
           var name = isCity ? item.cityname : item.platename;
-          html += '<tr><td>'+ (i+1).toString() +'</td><td>'+ name +'</td><td>'+ CM_UIUtil.formatValue(item.value, 1, null, '', '--') +'</td></tr>';
+          html += '<tr><td>'+ (i+1).toString() +'</td><td>'+ name +'</td><td>'+ CM_UIUtil.formatValue(item.value, 0, null, '', '--') +'</td></tr>';
         }
       }
       
