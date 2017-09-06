@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+  
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "PingFang SC","STHeitiSC-Light","微软雅黑","Microsoft YaHei","sans-serif";
+    font-size: 14px;
+}
+              
+#map {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    position: absolute;
+    z-index: 0;
+}
+
+.panel-primary {
+  border-color: rgb(231,90,22);
+  
+}
+
+.panel-primary > .panel-heading {
+  background-color: rgb(231,90,22);
+  border-color: rgb(231,90,22);
+}
+
+.stat-panel {
+    position: absolute;
+    z-index: 1;
+    
+    top: 120px;
+    left: -300px;
+    width: 210px;
+}
+
+.stat-panel .table {
+  padding: 0;
+  margin: 0;
+}
+.stat-panel .table td {
+  border-width: 0;
+  text-align: right;
+  width: 99px;
+/*  background-color: red;*/
+}
+
+.stat-panel .table td.value {
+  text-align: left;
+  width: 110px;
+/*  background-color: green;*/
+}
+               
+.rank-panel {
+    position: absolute;
+    z-index: 1;
+    
+    width: 320px;
+/*    height: 300px;*/
+    top: 120px;
+    right: -320px;
+    overflow: auto;
+}
+
+.rank-panel .panel {
+/*  height: 500px;*/
+  width: 100%;
+}
+
+.rank-panel .panel .panel-body {
+/*  height: 100%;*/
+  height: 360px;
+  overflow: auto;
+}
+
+/*.rank-panel .with-nav-tabs .panel-heading a {
+  color: rgb(111,111,111);
+  font-size: 12px;
+}*/
+
+.rank-panel .panel .table th, .rank-panel .panel .table td {
+  text-align: center;
+}
+
+.rank-box {
+  margin-bottom: 20px;
+}
+
+.rank-box h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.rank-box .table {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+/*.rank-panel .panel-heading>.nav-tabs {
+    border-bottom: none;
+    margin-bottom: -10px;
+} */
+
+/* 竞品数据 */
+.jp-panel {
+  position: absolute;
+  z-index: 10;
+  
+  width: 460px;
+  top: 120px;
+  left: 50%;
+  
+  margin-left: -230px;
+/*  margin-top: -200px;*/
+}
+
+.jp-panel .table {
+  margin-bottom: 5px;
+}
+
+.jp-panel .table th, .jp-panel .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.jp-panel .panel-heading {
+  text-align: center;
+}
+
+.jp-panel .panel .panel-body {
+/*  height: 100%;*/
+  height: 398px;
+  overflow: auto;
+}
+
+/*.jp-panel .close-panel {
+  float: right;
+}*/
+
+.jp-panel .avg-stat {
+/*  text-align: center;*/
+  margin-bottom: 10px;
+/*  font-weight: bold;*/
+  font-size: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(242,241,241);
+}
+
+.jp-panel .avg-stat h4 {
+  font-size: 16px;
+}
+
+.jp-panel .avg-stat .gc-avgprice {
+  padding-left: 30px;
+  font-size: 14px;
+}
+
+.fab-button {
+  position: absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+  
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  
+  border-radius: 50%;
+  -ms-border-radius: 20px;
+  background-color: rgba(0,0,0,0.7);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#B2000000,endColorstr=#B2000000);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.condition {
+  border: 1px solid rgb(231,90,22);
+  font-size: 12px;
+/*  display: inline-block;*/
+  padding: 3px 0;
+/*  margin-right: 3px;*/
+  margin-left: 3px;
+}
+
+.other-conditions {
+  margin-left: 5px;
+}
+
+.condition .bc-label {
+  background-color: rgb(231,90,22);
+  color: white;
+  padding: 3px 5px;
+}
+
+.condition .bc-value {
+  padding-left: 6px;
+  padding-right: 3px;
+}
+
+/* 标记样式 */
+.marker-container {
+    
+    border-radius: 50%;
+    background-color: rgba(231,90,22,0.9);
+/*    text-align: center;*/
+    
+    /*        text-align: center;*/
+}
+
+.small-marker {
+    width: 70px;
+    height: 70px;
+/*    line-height: 60px;*/
+    color: white;
+    font-size: 11px;
+}
+
+.small-marker .marker-content {
+  padding-top: 15px;
+  text-align: center;
+}
+
+.small-marker .cityname {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: bold;
+/*  margin-bottom: 5px;*/
+}
+
+.small-marker .platecount {
+  margin-top: 3px;
+}
+
+.large-marker {
+    width: 120px;
+    height: 120px;
+    
+/*    background-color: rgba(255,0,0,0.8);*/
+/*    text-align: left;*/
+}
+
+.large-marker .marker-content {
+  padding-top: 15px;
+  padding: 15px 10px 0;
+}
+
+.large-marker .marker-content .table {
+  margin: 0;
+  padding: 0;
+/*  background-color: green;*/
+  margin: 0 auto;
+/*  width: 100%;*/
+}
+
+.large-marker .marker-content .table td {
+  border-width: 0;
+  font-size: 11px;
+  color: white;
+  padding: 0;
+}
+
+.large-marker .marker-content .table td.label {
+  text-align: right;
+  max-width: 50%;
+/*  width: 20%;*/
+/*  background-color: green;*/
+}
+
+.large-marker .marker-content .table td.value {
+  text-align: left;
+  padding-left: 5px;
+}
+
+.plate-marker {
+    width: 108px;
+    height: 108px;
+    
+    background-color: rgba(255,0,0,0.8);
+}
+
+.plate-marker p, .large-marker p {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    color: white;
+}
+
+.large-marker .title, .plate-marker .title {
+    padding-top: 10px;
+    /*        font-weight: bold;*/
+    font-size: 14px;
+    text-align: center;
+}
+                  

@@ -74,6 +74,8 @@ window.CM_UIUtil = {
     var newValue = parseFloat(aVal);
     if (newValue === 0.0) return 0.0;
     
+    if (newValue < 0.0) return '--';
+    
     if (newValue < 10000) {
       newValue = newValue.toFixed(0);
     } else {

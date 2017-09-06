@@ -219,7 +219,7 @@ $(document).ready(function() {
     
     // $('input:radio:checked').prop('checked', false);
     // 重置搜索条件显示
-    $('#search-conditions #time-value').html('本月');
+    $('#search-conditions #time-value').html('最近月');
     var firstEl = $('.filter-items input[type="radio"]')[0];
     $(firstEl).prop('checked', true);
     
@@ -340,6 +340,9 @@ $(document).ready(function() {
       $('#search-conditions #other-conditions').html('<span class="condition"><span class="bc-label">'+ text +'</span><span class="bc-value" id="time-value">'+ tmpArray.join(',') +'</span></span>');
       
     } else {
+      CM_Network.cityMapDataParams.paramType = '-1';
+      CM_Network.cityMapDataParams.paramValues = '';
+      
       $('#search-conditions #other-conditions').html('');
     }
     
@@ -442,7 +445,7 @@ $(document).ready(function() {
   // 添加jquery日期
   $('#date-start').datepicker({
     showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
-    // minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
+    minDate: new Date('2010-01-01'),//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
     // maxDate: +17,//最大日期，同上
     //defaultDate : +4, //默认日期，同上
     duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
@@ -461,7 +464,7 @@ $(document).ready(function() {
   
   $('#date-end').datepicker({
     showAnim: 'slideDown',//show 默认,slideDown 滑下,fadeIn 淡入,blind 百叶窗,bounce 反弹,Clip 剪辑,drop 降落,fold 折叠,slide 滑动
-    // minDate: -1,//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
+    minDate: new Date('2010-01-01'),//最小日期，可以是Date对象，或者是数字（从今天算起，例如+7），或者有效的字符串('y'代表年, 'm'代表月, 'w'代表周, 'd'代表日, 例如：'+1m +7d')。
     // maxDate: +17,//最大日期，同上
     //defaultDate : +4, //默认日期，同上
     duration : 'fast',//动画展示的时间，可选是"slow", "normal", "fast",''代表立刻，数字代表毫秒数
