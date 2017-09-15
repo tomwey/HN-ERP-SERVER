@@ -103,6 +103,13 @@ body, html {
   margin-bottom: 5px;
 }
 
+.help-lists a {
+  display: inline-block;
+  padding: 5px 0;
+  text-decoration: underline;
+  color: rgb(58,58,58);
+}
+
 /*.rank-panel .panel-heading>.nav-tabs {
     border-bottom: none;
     margin-bottom: -10px;

@@ -22,7 +22,7 @@
     
     <link href="https://cdn.bootcss.com/bootstrap-select/1.12.4/css/bootstrap-select.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/style.css?v=2.5">
+    <link rel="stylesheet" href="css/style.css?v=2.6">
     <link rel="stylesheet" href="css/search.css?v=2.5">
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -184,7 +184,7 @@
             <td class="show-rank-td">
               <div class="cb-position" id="show-rank-cb">
                 <a class="data-desc" data-toggle="modal" data-target="#dataDescModal">
-                  &nbsp;数据说明
+                  &nbsp;使用帮助
                 </a>
                 <label class="cb-size">
                   <input type="checkbox" value="" id="show-rank"> 显示排名
@@ -275,18 +275,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">城市地图数据说明</h4>
+            <h4 class="modal-title">使用帮助</h4>
           </div>
           <div class="modal-body">
-            <p>
-              1、以行政区划分数据的城市：西安、佛山、郑州、东莞、济南、成都、天津、石家庄<br>
-              2、以板块划分数据的城市：武汉、长沙、宁波、合肥、杭州、苏州、重庆、南昌<br>
-              3、无供应数据的城市：佛山、郑州、重庆、石家庄<br>
-              4、无存量数据的城市：佛山、郑州、东莞、苏州、重庆、石家庄<br>
-              5、有部分存量数据的城市：合肥（仅有大城市存量数据）、济南（仅有大城市及部分区县存量套数数据）<br>
-              6、无销售分段数据的城市：武汉、成都<br>
-              7、无板块竞品销售分段数据的城市：重庆<br>
-            </p>
+            <ul class="list-unstyled help-lists">
+              <li><a href="http://erp20-app.heneng.cn:16681/upfiles/citymapdatadesc.docx">1、数据说明</a></li>
+              <li><a href="http://erp20-app.heneng.cn:16681/upfiles/cityaccess.docx">2、关于合能城市地图开通权限说明</a></li>
+              <li><a href="http://erp20-app.heneng.cn:16681/upfiles/citymapom.pptx">3、城市地图【地图】操作手册</a></li>
+              <li><a href="http://erp20-app.heneng.cn:16681/upfiles/citymapdata.pptx">4、城市地图【数据管理】操作手册</a></li>
+            </ul>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
